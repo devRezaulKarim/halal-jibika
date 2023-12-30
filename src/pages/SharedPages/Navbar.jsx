@@ -3,6 +3,7 @@ import classes from "../../Styles/Navbar.module.css";
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { IoMenu } from "react-icons/io5";
+import NavLinks from "../../Ults/NavLinks";
 
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -33,60 +34,25 @@ export default function Navbar() {
         >
           <ul>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? classes.active : "")}
-                to={"/"}
-              >
-                Home
-              </NavLink>
+              <NavLinks to={"/"}>Home</NavLinks>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? classes.active : "")}
-                to={"/jobs"}
-              >
-                Jobs
-              </NavLink>
+              <NavLinks to={"/jobs"}>Jobs</NavLinks>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? classes.active : "")}
-                to={"/favorite"}
-              >
-                Favorite
-              </NavLink>
+              <NavLinks to={"/favorite"}>Favorite</NavLinks>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? classes.active : "")}
-                to={"/applied"}
-              >
-                Applied
-              </NavLink>
+              <NavLinks to={"/applied"}>Applied</NavLinks>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? classes.active : "")}
-                to={"/about"}
-              >
-                About
-              </NavLink>
+              <NavLinks to={"/about"}>About</NavLinks>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? classes.active : "")}
-                to={"/contact"}
-              >
-                Contact
-              </NavLink>
+              <NavLinks to={"/contact"}>Contact</NavLinks>
             </li>
             <li>
-              <NavLink
-                className={({ isActive }) => (isActive ? classes.active : "")}
-                to={"/login"}
-              >
-                Login
-              </NavLink>
+              <NavLinks to={"/login"}>Login</NavLinks>
             </li>
             <li>
               <NavLink>Sign out</NavLink>
