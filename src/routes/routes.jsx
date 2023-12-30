@@ -6,7 +6,8 @@ import Contact from "../pages/Contact/Contact";
 import Favorite from "../pages/Favorite/Favorite";
 import Jobs from "../pages/Jobs/Jobs";
 import NothingFound from "../pages/NothingFound/NothingFound";
-import Login from "../pages/Login/Login";
+import Login from "../pages/Authentication/Login";
+import Registration from "../pages/Authentication/Registration";
 
 const routes = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const routes = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/registration",
+        element: <Registration />,
       },
     ],
   },

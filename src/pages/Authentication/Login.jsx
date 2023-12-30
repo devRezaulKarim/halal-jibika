@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import classes from "../../Styles/Login.module.css";
 import { useForm } from "react-hook-form";
 
@@ -48,7 +49,7 @@ export default function Login() {
             <input type="submit" value="Login" />
 
             <p className={classes.signUpText}>
-              New here? <a href="">Sign up</a> with email.
+              New here? <Link to="/registration">Sign up</Link> with email.
             </p>
 
             <div className={classes.socialBtns}>
