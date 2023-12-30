@@ -1,3 +1,11 @@
+:root {
+  --color-primary: #0b385f;
+  --color-secondary: #3373b0;
+  --color-accent: #bed4e9;
+  --color-black: #000;
+  --color-white: #fff;
+}
+
 *,
 *::before,
 *::after {
@@ -7,7 +15,6 @@
 }
 
 html {
-  color-scheme: dark;
   font-size: 62.5% !important;
 }
 
