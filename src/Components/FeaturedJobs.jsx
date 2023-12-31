@@ -1,14 +1,17 @@
 import classes from "../Styles/FeaturedJobs.module.css";
-import ProductCard from "./JobCard";
+import JobCard from "./JobCard";
 
-export default function FeaturedProducts() {
+export default function FeaturedJobs() {
   return (
     <div>
       <div className={classes.featuredHeading}>
         <h1>Featured Jobs</h1>
       </div>
       <div className={classes.featuredProducts}>
-        <ProductCard />
+        <JobCard />
+        <JobCard />
+        <JobCard />
+        <JobCard />
       </div>
     </div>
   );

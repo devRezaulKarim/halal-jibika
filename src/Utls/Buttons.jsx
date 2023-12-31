@@ -3,12 +3,20 @@ import { Link } from "react-router-dom";
 import classes from "../Styles/Buttons.module.css";
 import { FaArrowRight } from "react-icons/fa";
 
-export default function Buttons({ handler, children }) {
+export default function Buttons({ to, handler, children }) {
   return (
-    <button>
-      <Link to={handler} className={classes.btn}>
-        {children} <FaArrowRight />
-      </Link>
-    </button>
+    <>
+      {to ? (
+        <button>
+          <Link to={to} className={classes.btnLink}>
+            {children} <FaArrowRight />
+          </Link>
+        </button>
+      ) : (
+        <button onClick={handler} className={classes.btn}>
+          {children}
+        </button>
+      )}
+    </>
   );
 }

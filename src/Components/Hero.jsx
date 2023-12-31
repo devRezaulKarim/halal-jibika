@@ -15,7 +15,7 @@ export default function Hero() {
         </p>
         <div className={classes.heroBtn}>
           <div>
-            <Buttons handler={"/jobs"}>Explorer More</Buttons>
+            <Buttons to={"/jobs"}>Explorer More</Buttons>
           </div>
         </div>
       </div>

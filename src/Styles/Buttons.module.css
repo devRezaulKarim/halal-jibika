@@ -1,4 +1,4 @@
-.btn {
+.btnLink {
   border-bottom: 5px solid var(--color-primary);
   color: var(--color-primary);
   font-weight: 600;
@@ -11,4 +11,15 @@
   &:hover {
     gap: 1rem;
   }
+}
+.btn {
+  background-color: inherit;
+  color: var(--color-white);
+  font-weight: 600;
+  padding: 1rem 1rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.5s;
 }

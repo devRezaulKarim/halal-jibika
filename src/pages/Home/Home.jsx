@@ -1,4 +1,4 @@
-import FeaturedProducts from "../../Components/FeaturedJobs";
+import FeaturedJobs from "../../Components/FeaturedJobs";
 import Hero from "../../Components/Hero";
 import classes from "../../Styles/Home.module.css";
 
@@ -7,7 +7,7 @@ export default function Home() {
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <Hero />
-        <FeaturedProducts />
+        <FeaturedJobs />
       </div>
     </div>
   );
