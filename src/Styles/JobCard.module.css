@@ -50,8 +50,8 @@
 }
 
 .cardBtns {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  justify-content: space-around;
   gap: 0.8rem;
   position: absolute;
   bottom: 0;

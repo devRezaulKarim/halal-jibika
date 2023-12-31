@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import classes from "../Styles/JobCard.module.css";
 import Buttons from "./Buttons";
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 
-export default function JobCard({ d }) {
+export default function JobCard({ d, featured }) {
   const { title, logo, companyName, position, description } = d;
   return (
     <div className={classes.jobCard}>
@@ -23,17 +26,29 @@ export default function JobCard({ d }) {
         <p>{description}</p>
         <div className={classes.cardBtns}>
           <div className={`${classes.btn} ${classes.applyBtn}`}>
-            <Buttons handler={console.log("Clicked")}>Apply</Buttons>
+            <Buttons handler={console.log("Clicked")}>Apply Now</Buttons>
           </div>
           <div className={`${classes.btn} ${classes.favoriteBtn}`}>
-            <Buttons handler={console.log("Clicked")}>Favorite</Buttons>
+            <Buttons handler={console.log("Clicked")}>
+              <FaRegHeart />
+            </Buttons>
           </div>
-          <div className={`${classes.btn} ${classes.editBtn}`}>
-            <Buttons handler={console.log("Clicked")}>Edit</Buttons>
-          </div>
-          <div className={`${classes.btn} ${classes.deleteBtn}`}>
-            <Buttons handler={console.log("Clicked")}>Delete</Buttons>
-          </div>
+          {!featured ? (
+            <>
+              <div className={`${classes.btn} ${classes.editBtn}`}>
+                <Buttons handler={console.log("Clicked")}>
+                  <FaEdit />
+                </Buttons>
+              </div>
+              <div className={`${classes.btn} ${classes.deleteBtn}`}>
+                <Buttons handler={console.log("Clicked")}>
+                  <MdDelete />
+                </Buttons>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

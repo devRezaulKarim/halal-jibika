@@ -21,9 +21,9 @@ export default function FeaturedJobs() {
       <div className={classes.featuredProducts}>
         {[...data]
           .reverse()
-          .slice(0, 5)
+          .slice(0, 4)
           .map((d) => (
-            <JobCard key={d.id} d={d} />
+            <JobCard key={d.id} d={d} featured={true} />
           ))}
       </div>
     </div>
