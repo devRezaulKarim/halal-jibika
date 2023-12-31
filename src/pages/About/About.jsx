@@ -17,7 +17,7 @@ export default function About() {
       </section>
 
       <section className={classes.section}>
-        <h2>Our Mission</h2>
+        <h2>Our Mission:</h2>
         <p>
           At <span className={classes.brandName}>HALAL JIBIKA</span>, we believe
           that everyone deserves to love what they do. Our mission is to empower
@@ -28,7 +28,7 @@ export default function About() {
       </section>
 
       <section className={classes.section}>
-        <h2>What Sets Us Apart</h2>
+        <h2>What Sets Us Apart:</h2>
         <p>
           <span className={classes.brandName}>HALAL JIBIKA</span> stands out
           from the crowd with a commitment to user-friendly design, advanced
@@ -40,7 +40,7 @@ export default function About() {
       </section>
 
       <section className={classes.section}>
-        <h2>Our Team</h2>
+        <h2>Our Team:</h2>
         <p>
           Behind <span className={classes.brandName}>HALAL JIBIKA</span> is a
           team of dedicated professionals passionate about revolutionizing the
