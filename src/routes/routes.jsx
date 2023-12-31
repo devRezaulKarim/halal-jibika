@@ -8,6 +8,7 @@ import Jobs from "../pages/Jobs/Jobs";
 import NothingFound from "../pages/NothingFound/NothingFound";
 import Login from "../pages/Authentication/Login";
 import Registration from "../pages/Authentication/Registration";
+import Applied from "../pages/Applied/Applied";
 
 const routes = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const routes = createBrowserRouter([
       {
         path: "/jobs",
         element: <Jobs />,
+      },
+      {
+        path: "/applied",
+        element: <Applied />,
       },
       {
         path: "/login",

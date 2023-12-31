@@ -3,6 +3,12 @@
 .container {
   background-color: var(--color-primary);
   color: var(--color-white);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.container.scrolled {
+  box-shadow: 0 2px 5px #000;
 }
 .wrapper {
   max-width: 1200px;
@@ -17,6 +23,53 @@
   font-size: 4rem;
 }
 
+.navLinks ul {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .burgerMenu {
   display: none;
+}
+
+@media (max-width: 991.98px) {
+  html {
+  }
+  .burgerMenu {
+    display: block;
+    margin-right: 1rem;
+    font-size: 3rem;
+  }
+  .wrapper {
+    position: relative;
+  }
+  .wrapper .logo {
+    font-size: 3rem;
+    margin-left: 1rem;
+  }
+  .navLinks {
+    position: absolute;
+    top: 3.7rem;
+    right: -100%;
+    background-color: var(--color-primary);
+    padding-inline-end: 1.5rem;
+    padding-inline-start: 2.5rem;
+    height: 40rem;
+    border-bottom-left-radius: 20rem;
+    transition: all 0.2s;
+  }
+  .openMobileNavLinks {
+    right: 0;
+  }
+  .navLinks ul {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 2rem;
+    padding-block: 1rem;
+  }
+}
+@media (max-width: 767.98px) {
+  /**/
 }
