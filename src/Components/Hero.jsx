@@ -6,7 +6,10 @@ export default function Hero() {
     <div className={classes.hero}>
       <div className={classes.heroLeft}>
         <h1>
-          Grab Your <span>Dream!</span>
+          Grab Your{" "}
+          <span>
+            Dream<span>!</span>{" "}
+          </span>
         </h1>
         <p>
           Empower Your Career Journey: <br /> Find Your Next Opportunity with

@@ -53,9 +53,9 @@
   border-radius: 0.5rem;
 }
 
-@media (max-width: 600px) {
-  .contact-info,
-  .contact-form {
+@media (max-width: 767px) {
+  .contactInfo,
+  .contactForm {
     flex: 100%;
   }
 }

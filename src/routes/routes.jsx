@@ -9,6 +9,7 @@ import NothingFound from "../pages/NothingFound/NothingFound";
 import Login from "../pages/Authentication/Login";
 import Registration from "../pages/Authentication/Registration";
 import Applied from "../pages/Applied/Applied";
+import AddJob from "../pages/AddJob/AddJob";
 
 const routes = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const routes = createBrowserRouter([
       {
         path: "/applied",
         element: <Applied />,
+      },
+      {
+        path: "/addjob",
+        element: <AddJob />,
       },
       {
         path: "/login",

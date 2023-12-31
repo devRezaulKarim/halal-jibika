@@ -17,6 +17,19 @@
     & span {
       font-family: "Passion One";
       color: var(--color-primary);
+      span {
+        font-size: 7rem;
+        background-clip: text;
+        background: linear-gradient(
+          0deg,
+          rgba(136, 0, 254, 0.914) 40%,
+          rgba(11, 56, 95, 1) 30%
+        );
+        -webkit-background-clip: text;
+        color: transparent;
+        display: inline-block;
+        animation: blink 1s linear infinite;
+      }
     }
   }
   p {
@@ -39,6 +52,18 @@
 
 .hero .heroRight {
   max-width: 45%;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0);
+    opacity: 0;
+  }
 }
 
 @media (max-width: 991.98px) {

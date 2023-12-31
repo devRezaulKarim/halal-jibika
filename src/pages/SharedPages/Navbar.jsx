@@ -65,6 +65,11 @@ export default function Navbar() {
               </NavLinks>
             </li>
             <li>
+              <NavLinks to={"/addjob"} setOpenMenu={setOpenMenu}>
+                Add Job
+              </NavLinks>
+            </li>
+            <li>
               <NavLinks to={"/about"} setOpenMenu={setOpenMenu}>
                 About
               </NavLinks>
