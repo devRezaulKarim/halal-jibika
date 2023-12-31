@@ -1,27 +1,26 @@
+/* eslint-disable react/prop-types */
 import classes from "../Styles/JobCard.module.css";
-import Buttons from "../Utls/Buttons";
+import Buttons from "./Buttons";
 
-export default function JobCard() {
+export default function JobCard({ d }) {
+  const { title, logo, companyName, position, description } = d;
   return (
     <div className={classes.jobCard}>
       <div className={classes.cardTop}>
         <div className={classes.cardImg}>
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt=""
-          />
+          <img src={logo} alt="" />
         </div>
         <div className={classes.companyName}>
           <h2>
-            Company: <span>Google</span>
+            Company: <span>{companyName}</span>
           </h2>
         </div>
       </div>
 
       <div className={classes.cardBottom}>
-        <h1>Google Internship Program</h1>
-        <h4>Position: Intern Developer</h4>
-        <p>This is an internship opportunity from Google</p>
+        <h1>{title}</h1>
+        <h4>Position: {position}</h4>
+        <p>{description}</p>
         <div className={classes.cardBtns}>
           <div className={`${classes.btn} ${classes.applyBtn}`}>
             <Buttons handler={console.log("Clicked")}>Apply</Buttons>

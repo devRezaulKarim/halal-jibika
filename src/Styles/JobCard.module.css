@@ -12,16 +12,26 @@
 .cardTop {
   text-align: center;
   margin-bottom: 2rem;
+  min-height: 15rem;
+  position: relative;
 }
 .cardTop .cardImg {
   width: 40%;
+  min-height: 15rem;
   margin: auto;
+  padding-bottom: 4rem;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .cardTop .cardImg img {
   width: 100%;
 }
-
+.cardTop .companyName {
+  position: absolute;
+  bottom: 0;
+}
 .cardTop .companyName h2 {
   font-size: 2rem;
   span {

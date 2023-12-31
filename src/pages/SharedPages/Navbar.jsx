@@ -3,7 +3,7 @@ import classes from "../../Styles/Navbar.module.css";
 import { useEffect, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { IoMenu } from "react-icons/io5";
-import NavLinks from "../../Utls/NavLinks";
+import NavLinks from "../../Components/NavLinks";
 
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);

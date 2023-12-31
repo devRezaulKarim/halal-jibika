@@ -1,5 +1,5 @@
 import classes from "../Styles/Hero.module.css";
-import Buttons from "../Utls/Buttons";
+import Buttons from "./Buttons";
 
 export default function Hero() {
   return (

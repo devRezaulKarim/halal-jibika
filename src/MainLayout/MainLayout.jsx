@@ -6,6 +6,7 @@ export default function MainLayout() {
   return (
     <div>
       <Navbar />
+
       <div style={{ minHeight: "68vh" }}>
         <Outlet />
       </div>
