@@ -26,7 +26,7 @@ export default function JobCard({ d, featured }) {
         <p>{description}</p>
         <div className={classes.cardBtns}>
           <div className={`${classes.btn} ${classes.applyBtn}`}>
-            <Buttons handler={console.log("Clicked")}>Apply Now</Buttons>
+            <Buttons handler={() => console.log("Clicked")}>Apply Now</Buttons>
           </div>
           <div className={`${classes.btn} ${classes.favoriteBtn}`}>
             <Buttons handler={console.log("Clicked")}>

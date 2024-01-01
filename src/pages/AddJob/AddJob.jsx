@@ -1,14 +1,31 @@
+/* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
 import classes from "../../Styles/AddJob.module.css";
 import Input from "../../Components/Input";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function AddJob() {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, reset, handleSubmit, errors } = useForm({
+    defaultValues: {
+      title: "",
+      logo: "",
+      companyName: "",
+      position: "",
+    },
+  });
 
   const onSubmit = (data) => {
-    console.log(data);
+    axios
+      .post("http://localhost:9000/jobs", data)
 
-    // You can handle the form data as needed, such as sending it to an API
+      .then(function (response) {
+        toast.success(`Job added successfully`);
+        reset();
+      })
+      .catch(function (error) {
+        toast.error(`Something went wrong!`);
+      });
   };
 
   return (
@@ -20,7 +37,7 @@ export default function AddJob() {
             <Input register={register} type="text" name="title">
               Title
             </Input>
-            <Input register={register} type="text" name="imgUrl">
+            <Input register={register} type="text" name="logo">
               Image URL
             </Input>
             <Input register={register} type="text" name="companyName">
@@ -37,7 +54,6 @@ export default function AddJob() {
                 {...register("description", { required: "This is required" })}
               />
             </div>
-            {errors ? <p>dfgsfgfdg</p> : ""}
             <input type="submit" value={"Submit"} />
           </form>
         </fieldset>
