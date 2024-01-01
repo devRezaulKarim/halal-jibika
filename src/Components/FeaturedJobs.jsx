@@ -7,8 +7,10 @@ import Buttons from "./Buttons";
 import JobCard from "./JobCard";
 import FavoriteManager from "../Utls/FavoriteManager";
 import ApplyNowManager from "../Utls/ApplyNowManager";
+import JobDetailsModal from "./jobDetailsModal";
 
 export default function FeaturedJobs() {
+  const [showDetails, setShowDetails] = useState(null);
   const { loading, error, data } = useFetch("http://localhost:9000/jobs");
   const [jobs, setJobs] = useState(data);
   useEffect(() => {
@@ -17,12 +19,14 @@ export default function FeaturedJobs() {
 
   //Handle Favorite
 
-  const handleFavorite = (job) => {
+  const handleFavorite = (job, event) => {
+    event.stopPropagation();
     FavoriteManager(jobs, job, setJobs);
   };
 
   //Handle Apply now
-  const handleApply = (job) => {
+  const handleApply = (job, event) => {
+    event.stopPropagation();
     ApplyNowManager(jobs, job, setJobs);
   };
 
@@ -48,6 +52,7 @@ export default function FeaturedJobs() {
               featured={true}
               handleFavorite={handleFavorite}
               handleApply={handleApply}
+              setShowDetails={setShowDetails}
             />
           ))}
       </div>
@@ -56,6 +61,14 @@ export default function FeaturedJobs() {
           <Buttons to={"/jobs"}>Show All Jobs</Buttons>
         </div>
       </div>
+      {showDetails ? (
+        <JobDetailsModal
+          showDetails={showDetails}
+          setShowDetails={setShowDetails}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

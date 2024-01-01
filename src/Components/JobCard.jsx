@@ -12,6 +12,7 @@ export default function JobCard({
   handleEdit,
   handleFavorite,
   handleApply,
+  setShowDetails,
 }) {
   let {
     title,
@@ -25,7 +26,7 @@ export default function JobCard({
   } = job;
 
   return (
-    <div className={classes.jobCard}>
+    <div onClick={() => setShowDetails(job)} className={classes.jobCard}>
       <div className={classes.cardTop}>
         <div className={classes.cardImg}>
           <img src={logo} alt="" />
@@ -36,35 +37,30 @@ export default function JobCard({
           </h2>
         </div>
       </div>
-
       <div className={classes.cardBottom}>
         <h1>{title}</h1>
         <h4>Position: {position}</h4>
         <p>{description}</p>
         <div className={classes.cardBtns}>
-          <div
-            className={`${classes.btn} ${classes.applyBtn} ${
-              isApplied && classes.eventDisabler
-            }`}
-          >
-            <Buttons handler={() => handleApply(job)}>
+          <div className={`${classes.btn} ${classes.applyBtn}`}>
+            <Buttons handler={(event) => handleApply(job, event)}>
               {isApplied ? "Applied" : "Apply Now"}
             </Buttons>
           </div>
           <div className={`${classes.btn} ${classes.favoriteBtn} `}>
-            <Buttons handler={() => handleFavorite(job)}>
+            <Buttons handler={(event) => handleFavorite(job, event)}>
               {isFavorite ? <FaHeart /> : <FaRegHeart />}
             </Buttons>
           </div>
           {!featured ? (
             <>
               <div className={`${classes.btn} ${classes.editBtn}`}>
-                <Buttons handler={() => handleEdit(job)}>
+                <Buttons handler={(event) => handleEdit(job, event)}>
                   <FaEdit />
                 </Buttons>
               </div>
               <div className={`${classes.btn} ${classes.deleteBtn}`}>
-                <Buttons handler={() => handleDelete(id)}>
+                <Buttons handler={(event) => handleDelete(id, event)}>
                   <MdDelete />
                 </Buttons>
               </div>

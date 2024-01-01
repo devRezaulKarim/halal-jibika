@@ -3,8 +3,21 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function ApplyNowManager(jobs, job, setJobs) {
+  if (job.isApplied) {
+    toast.warn("You already applied to this job!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+    return;
+  }
   axios
-    .patch(`http://localhost:9000/jobs/${job.id}`, {
+    .put(`http://localhost:9000/jobs/${job.id}`, {
       ...job,
       isApplied: true,
     })

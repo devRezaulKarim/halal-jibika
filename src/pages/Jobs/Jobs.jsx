@@ -12,11 +12,11 @@ import { useForm } from "react-hook-form";
 import { IoMdCloseCircle } from "react-icons/io";
 import FavoriteManager from "../../Utls/FavoriteManager";
 import ApplyNowManager from "../../Utls/ApplyNowManager";
+import JobDetailsModal from "../../Components/jobDetailsModal";
 
 export default function Jobs() {
-  // const [editingJob, setEditingJob] = useState({});
   const { register, handleSubmit, reset } = useForm();
-
+  const [showDetails, setShowDetails] = useState(null);
   const { loading, error, data } = useFetch("http://localhost:9000/jobs");
   const [jobs, setJobs] = useState(data);
   const [editingID, setEditingID] = useState(null);
@@ -25,7 +25,8 @@ export default function Jobs() {
   }, [data]);
 
   //Handling delete job
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, event) => {
+    event.stopPropagation();
     await axios.delete(`http://localhost:9000/jobs/${id}`);
     setJobs(jobs.filter((d) => d.id !== id));
     toast.error("The job has been deleted", {
@@ -41,7 +42,8 @@ export default function Jobs() {
   };
 
   //opening the form as a modal for editing the job. and showing the prev details.
-  const handleEdit = (job) => {
+  const handleEdit = (job, event) => {
+    event.stopPropagation();
     setEditingID(job.id);
     reset(job);
   };
@@ -69,12 +71,14 @@ export default function Jobs() {
 
   //Handle Favorite
 
-  const handleFavorite = (job) => {
+  const handleFavorite = (job, event) => {
+    event.stopPropagation();
     FavoriteManager(jobs, job, setJobs);
   };
 
   //Handle Apply now
-  const handleApply = (job) => {
+  const handleApply = (job, event) => {
+    event.stopPropagation();
     ApplyNowManager(jobs, job, setJobs);
   };
 
@@ -97,9 +101,11 @@ export default function Jobs() {
               handleEdit={handleEdit}
               handleFavorite={handleFavorite}
               handleApply={handleApply}
+              setShowDetails={setShowDetails}
             />
           ))}
         </div>
+        {/* Update form modal */}
         {editingID ? (
           <div className={classes.editForm}>
             <div>
@@ -116,6 +122,15 @@ export default function Jobs() {
               />
             </div>
           </div>
+        ) : (
+          ""
+        )}
+        {/* details modal */}
+        {showDetails ? (
+          <JobDetailsModal
+            showDetails={showDetails}
+            setShowDetails={setShowDetails}
+          />
         ) : (
           ""
         )}

@@ -1,17 +1,4 @@
-.wrapper {
-  max-width: 1200px;
-  margin: auto;
-  padding-top: 3.5rem;
-}
-
-.wrapper .jobs {
-  display: grid;
-  padding-inline: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-  gap: 3rem;
-}
-
-.editForm {
+.jobDetailModal {
   z-index: 99;
   background-color: rgba(11, 56, 95, 0.5);
   backdrop-filter: blur(0.7rem);
@@ -25,7 +12,7 @@
   justify-content: center;
 }
 
-.editForm > div {
+.jobDetailModal > div {
   background-color: var(--color-white);
   min-width: 40rem;
   padding: 2rem;
@@ -34,7 +21,7 @@
   position: relative;
 }
 
-.editForm .closeModalBtn {
+.jobDetailModal .closeModalBtn {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -50,13 +37,13 @@
 }
 
 @media (max-width: 767px) {
-  .editForm > div {
+  .jobDetailModal > div {
     min-width: 30rem;
   }
 }
 
 @media (max-width: 929px) {
-  .editForm > div {
+  .jobDetailModal > div {
     width: 75vw;
   }
 }
