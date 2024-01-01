@@ -5,8 +5,15 @@ import { MdDelete } from "react-icons/md";
 import { FaEdit, FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 
-export default function JobCard({ job, featured, handleDelete, handleEdit }) {
-  const {
+export default function JobCard({
+  job,
+  featured,
+  handleDelete,
+  handleEdit,
+  handleFavorite,
+  handleApply,
+}) {
+  let {
     title,
     logo,
     companyName,
@@ -16,6 +23,7 @@ export default function JobCard({ job, featured, handleDelete, handleEdit }) {
     isFavorite,
     isApplied,
   } = job;
+
   return (
     <div className={classes.jobCard}>
       <div className={classes.cardTop}>
@@ -34,13 +42,17 @@ export default function JobCard({ job, featured, handleDelete, handleEdit }) {
         <h4>Position: {position}</h4>
         <p>{description}</p>
         <div className={classes.cardBtns}>
-          <div className={`${classes.btn} ${classes.applyBtn}`}>
-            <Buttons handler={() => console.log("Clicked")}>
+          <div
+            className={`${classes.btn} ${classes.applyBtn} ${
+              isApplied && classes.eventDisabler
+            }`}
+          >
+            <Buttons handler={() => handleApply(job)}>
               {isApplied ? "Applied" : "Apply Now"}
             </Buttons>
           </div>
-          <div className={`${classes.btn} ${classes.favoriteBtn}`}>
-            <Buttons handler={() => console.log("Clicked")}>
+          <div className={`${classes.btn} ${classes.favoriteBtn} `}>
+            <Buttons handler={() => handleFavorite(job)}>
               {isFavorite ? <FaHeart /> : <FaRegHeart />}
             </Buttons>
           </div>

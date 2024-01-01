@@ -21,7 +21,7 @@ export default function AddJob() {
 
       .then(function (response) {
         toast.success(`Job added successfully`);
-        // reset();
+        reset();
       })
       .catch(function (error) {
         toast.error(`Something went wrong!`);

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import JobCard from "../../Components/JobCard";
 import useFetch from "../../Hooks/useFetch";
@@ -9,6 +10,8 @@ import { toast } from "react-toastify";
 import Form from "../../Components/Form";
 import { useForm } from "react-hook-form";
 import { IoMdCloseCircle } from "react-icons/io";
+import FavoriteManager from "../../Utls/FavoriteManager";
+import ApplyNowManager from "../../Utls/ApplyNowManager";
 
 export default function Jobs() {
   // const [editingJob, setEditingJob] = useState({});
@@ -25,7 +28,7 @@ export default function Jobs() {
   const handleDelete = async (id) => {
     await axios.delete(`http://localhost:9000/jobs/${id}`);
     setJobs(jobs.filter((d) => d.id !== id));
-    toast.warn("The job has been deleted", {
+    toast.error("The job has been deleted", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: true,
@@ -42,8 +45,6 @@ export default function Jobs() {
     setEditingID(job.id);
     reset(job);
   };
-
-  //handle Close modal
 
   // handle form submission
   const onSubmit = (data) => {
@@ -66,9 +67,16 @@ export default function Jobs() {
       });
   };
 
-  useEffect(() => {
-    console.log(jobs);
-  });
+  //Handle Favorite
+
+  const handleFavorite = (job) => {
+    FavoriteManager(jobs, job, setJobs);
+  };
+
+  //Handle Apply now
+  const handleApply = (job) => {
+    ApplyNowManager(jobs, job, setJobs);
+  };
 
   if (loading) {
     return <Spinner />;
@@ -87,6 +95,8 @@ export default function Jobs() {
               job={job}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
+              handleFavorite={handleFavorite}
+              handleApply={handleApply}
             />
           ))}
         </div>
