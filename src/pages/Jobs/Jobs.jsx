@@ -16,7 +16,7 @@ export default function Jobs() {
 
   const { loading, error, data } = useFetch("http://localhost:9000/jobs");
   const [jobs, setJobs] = useState(data);
-  const [isEdit, setIsEdit] = useState(false);
+  const [editingID, setEditingID] = useState(null);
   useEffect(() => {
     setJobs(data);
   }, [data]);
@@ -39,16 +39,36 @@ export default function Jobs() {
 
   //opening the form as a modal for editing the job. and showing the prev details.
   const handleEdit = (job) => {
-    setIsEdit(true);
+    setEditingID(job.id);
     reset(job);
   };
 
   //handle Close modal
 
-  // handle form submition
+  // handle form submission
   const onSubmit = (data) => {
-    console.log(data);
+    axios
+      .put(`http://localhost:9000/jobs/${editingID}`, data)
+      .then((res) => {
+        setJobs(
+          jobs.map((job) => {
+            if (job.id === editingID) {
+              return { ...job, ...data };
+            }
+            return job;
+          })
+        );
+        setEditingID(null);
+        toast.success("Job updated successfully");
+      })
+      .catch((error) => {
+        toast.error("Something Went Wrong");
+      });
   };
+
+  useEffect(() => {
+    console.log(jobs);
+  });
 
   if (loading) {
     return <Spinner />;
@@ -70,11 +90,11 @@ export default function Jobs() {
             />
           ))}
         </div>
-        {isEdit ? (
+        {editingID ? (
           <div className={classes.editForm}>
             <div>
               <button
-                onClick={() => setIsEdit(false)}
+                onClick={() => setEditingID(false)}
                 className={classes.closeModalBtn}
               >
                 <IoMdCloseCircle />
