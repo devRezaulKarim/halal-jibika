@@ -10,39 +10,4 @@
     width: 400px;
     padding: 1rem;
   }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-
-  .textArea {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    textarea {
-      resize: none;
-      height: 5rem;
-      border-radius: 0.5rem;
-      border: none;
-      outline: 2px solid gray;
-      font-size: 1.5rem;
-      padding: 0.8rem 1rem;
-    }
-  }
-
-  input[type="submit"] {
-    background-color: var(--color-primary);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    font-size: 1.8rem;
-    color: #fff;
-    transition: transform 0.2s;
-    border: none;
-    cursor: pointer;
-    &:hover {
-      transform: translateY(-2px);
-    }
-  }
 }

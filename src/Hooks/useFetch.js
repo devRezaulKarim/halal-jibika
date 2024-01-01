@@ -12,7 +12,7 @@ export default function useFetch(url) {
         setData(response.data);
         setLoading(false);
       })
-      .catch(function (error) {
+      .catch((error) => {
         setError(error.message);
         setLoading(false);
       });

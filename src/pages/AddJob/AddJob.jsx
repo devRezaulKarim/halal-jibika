@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
 import classes from "../../Styles/AddJob.module.css";
-import Input from "../../Components/Input";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Form from "../../Components/Form";
 
 export default function AddJob() {
   const { register, reset, handleSubmit, errors } = useForm({
@@ -21,7 +21,7 @@ export default function AddJob() {
 
       .then(function (response) {
         toast.success(`Job added successfully`);
-        reset();
+        // reset();
       })
       .catch(function (error) {
         toast.error(`Something went wrong!`);
@@ -33,29 +33,11 @@ export default function AddJob() {
       <div className={classes.wrapper}>
         <fieldset>
           <legend>Add a new job</legend>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input register={register} type="text" name="title">
-              Title
-            </Input>
-            <Input register={register} type="text" name="logo">
-              Image URL
-            </Input>
-            <Input register={register} type="text" name="companyName">
-              Company Name
-            </Input>
-            <Input register={register} type="text" name="position">
-              Position
-            </Input>
-            <div className={classes.textArea}>
-              <label htmlFor="description">Description:</label>
-              <textarea
-                placeholder="Description"
-                id="description"
-                {...register("description", { required: "This is required" })}
-              />
-            </div>
-            <input type="submit" value={"Submit"} />
-          </form>
+          <Form
+            onSubmit={onSubmit}
+            handleSubmit={handleSubmit}
+            register={register}
+          />
         </fieldset>
       </div>
     </div>

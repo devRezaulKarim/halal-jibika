@@ -22,8 +22,8 @@
         background-clip: text;
         background: linear-gradient(
           0deg,
-          rgba(136, 0, 254, 0.914) 40%,
-          rgba(11, 56, 95, 1) 30%
+          rgba(11, 56, 95, 1) 40%,
+          rgb(135, 0, 254) 30%
         );
         -webkit-background-clip: text;
         color: transparent;

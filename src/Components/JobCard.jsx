@@ -5,8 +5,8 @@ import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 
-export default function JobCard({ d, featured }) {
-  const { title, logo, companyName, position, description } = d;
+export default function JobCard({ job, featured, handleDelete, handleEdit }) {
+  const { title, logo, companyName, position, description, id } = job;
   return (
     <div className={classes.jobCard}>
       <div className={classes.cardTop}>
@@ -29,19 +29,19 @@ export default function JobCard({ d, featured }) {
             <Buttons handler={() => console.log("Clicked")}>Apply Now</Buttons>
           </div>
           <div className={`${classes.btn} ${classes.favoriteBtn}`}>
-            <Buttons handler={console.log("Clicked")}>
+            <Buttons handler={() => console.log("Clicked")}>
               <FaRegHeart />
             </Buttons>
           </div>
           {!featured ? (
             <>
               <div className={`${classes.btn} ${classes.editBtn}`}>
-                <Buttons handler={console.log("Clicked")}>
+                <Buttons handler={() => handleEdit(job)}>
                   <FaEdit />
                 </Buttons>
               </div>
               <div className={`${classes.btn} ${classes.deleteBtn}`}>
-                <Buttons handler={console.log("Clicked")}>
+                <Buttons handler={() => handleDelete(id)}>
                   <MdDelete />
                 </Buttons>
               </div>
