@@ -14,7 +14,7 @@
 }
 .btn {
   background-color: inherit;
-  color: var(--color-white);
+  color: inherit;
   font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 2rem;

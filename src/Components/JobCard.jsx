@@ -2,11 +2,20 @@
 import classes from "../Styles/JobCard.module.css";
 import Buttons from "./Buttons";
 import { MdDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 
 export default function JobCard({ job, featured, handleDelete, handleEdit }) {
-  const { title, logo, companyName, position, description, id } = job;
+  const {
+    title,
+    logo,
+    companyName,
+    position,
+    description,
+    id,
+    isFavorite,
+    isApplied,
+  } = job;
   return (
     <div className={classes.jobCard}>
       <div className={classes.cardTop}>
@@ -26,11 +35,13 @@ export default function JobCard({ job, featured, handleDelete, handleEdit }) {
         <p>{description}</p>
         <div className={classes.cardBtns}>
           <div className={`${classes.btn} ${classes.applyBtn}`}>
-            <Buttons handler={() => console.log("Clicked")}>Apply Now</Buttons>
+            <Buttons handler={() => console.log("Clicked")}>
+              {isApplied ? "Applied" : "Apply Now"}
+            </Buttons>
           </div>
           <div className={`${classes.btn} ${classes.favoriteBtn}`}>
             <Buttons handler={() => console.log("Clicked")}>
-              <FaRegHeart />
+              {isFavorite ? <FaHeart /> : <FaRegHeart />}
             </Buttons>
           </div>
           {!featured ? (

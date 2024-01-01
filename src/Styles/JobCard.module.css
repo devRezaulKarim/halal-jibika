@@ -63,18 +63,21 @@
     display: flex;
     justify-content: center;
     transition: all 0.2s;
+    color: var(--color-black);
     &:hover {
       transform: scale(1.05);
     }
     &.applyBtn,
-    &.favoriteBtn {
-      background-color: var(--color-primary);
-    }
+    &.favoriteBtn,
     &.editBtn {
       background-color: var(--color-secondary);
     }
     &.deleteBtn {
       background-color: #f00;
+      color: var(--color-white);
+    }
+    &.favoriteBtn {
+      color: #f00;
     }
   }
 }
