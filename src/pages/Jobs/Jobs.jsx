@@ -8,6 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Form from "../../Components/Form";
 import { useForm } from "react-hook-form";
+import { IoMdCloseCircle } from "react-icons/io";
 
 export default function Jobs() {
   // const [editingJob, setEditingJob] = useState({});
@@ -42,6 +43,8 @@ export default function Jobs() {
     reset(job);
   };
 
+  //handle Close modal
+
   // handle form submition
   const onSubmit = (data) => {
     console.log(data);
@@ -68,11 +71,21 @@ export default function Jobs() {
           ))}
         </div>
         {isEdit ? (
-          <Form
-            onSubmit={onSubmit}
-            handleSubmit={handleSubmit}
-            register={register}
-          />
+          <div className={classes.editForm}>
+            <div>
+              <button
+                onClick={() => setIsEdit(false)}
+                className={classes.closeModalBtn}
+              >
+                <IoMdCloseCircle />
+              </button>
+              <Form
+                onSubmit={onSubmit}
+                handleSubmit={handleSubmit}
+                register={register}
+              />
+            </div>
+          </div>
         ) : (
           ""
         )}
