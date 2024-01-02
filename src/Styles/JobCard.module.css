@@ -5,6 +5,12 @@
   overflow: hidden;
   cursor: pointer;
   background-color: var(--color-accent);
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 1.5rem 0.2rem var(--color-primary);
+  }
 }
 
 .cardTop {
