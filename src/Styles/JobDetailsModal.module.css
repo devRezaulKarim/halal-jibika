@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 }
 
 .jobDetailModal > div {
@@ -19,12 +20,14 @@
   padding-top: 3rem;
   border-radius: 0.5rem;
   position: relative;
+  max-height: 90vh;
+  overflow: auto;
 }
 
 .jobDetailModal .closeModalBtn {
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  right: 2rem;
   font-size: 3rem;
   color: orangered;
   background-color: transparent;
@@ -36,14 +39,100 @@
   }
 }
 
+.detailsWrapper {
+  padding: 1rem;
+  max-width: 55rem;
+}
+.detailsTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  margin-bottom: 3rem;
+}
+.detailsTop .detailsPhoto {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  img {
+    width: 70%;
+  }
+}
+
+.detailsTop .companyInfo {
+  width: 60%;
+  font-size: 1.8rem;
+  h3 {
+    font-size: 3rem;
+  }
+  h5 {
+    margin-block: 0.5rem;
+  }
+}
+
+.detailsBottom .jobInfo {
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  p {
+    margin-block: 1rem;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+
+    span {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: end;
+  margin-top: 2rem;
+  div {
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    font-size: 2rem;
+    color: var(--color-white);
+    &:hover {
+      transform: scale(1.05);
+    }
+    &.applyBtn {
+      background-color: var(--color-secondary);
+    }
+  }
+}
+
 @media (max-width: 767px) {
   .jobDetailModal > div {
     min-width: 30rem;
+  }
+  .detailsTop {
+    display: block;
+  }
+  .jobDetailModal .closeModalBtn {
+    top: 1rem;
+    right: 1rem;
   }
 }
 
 @media (max-width: 929px) {
   .jobDetailModal > div {
     width: 75vw;
+  }
+  .detailsTop {
+    display: block;
+  }
+  .detailsBottom .jobInfo {
+    .heading {
+      display: block;
+    }
   }
 }

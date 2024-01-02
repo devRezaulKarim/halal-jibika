@@ -1,13 +1,18 @@
 /* eslint-disable react/prop-types */
 import { IoMdCloseCircle } from "react-icons/io";
 import classes from "../Styles/JobDetailsModal.module.css";
+import Buttons from "./Buttons";
 
-export default function JobDetailsModal({ showDetails, setShowDetails }) {
+export default function JobDetailsModal({
+  showDetails,
+  setShowDetails,
+  handleApply,
+}) {
   const {
     title,
     companyName,
-    companyWebsite,
-    companyLocation,
+    website,
+    location,
     salary,
     position,
     deadLine,
@@ -28,25 +33,39 @@ export default function JobDetailsModal({ showDetails, setShowDetails }) {
               <img src={showDetails.logo} alt="" />
             </div>
             <div className={classes.companyInfo}>
-              <h5>{companyName}</h5>
-              <h5>
-                {"companyWebsite"}: {companyWebsite}
-              </h5>
-              <h5>
-                {"companyLocation"}: {companyLocation}
-              </h5>
+              <h3>{companyName}</h3>
+              <h5>{website}</h5>
+              <h5>{location}</h5>
             </div>
           </div>
           <div className={classes.detailsBottom}>
             <div className={classes.jobInfo}>
-              <h2>{title}</h2>
-              <p>{salary}</p>
-              <p>{position}</p>
-              <p>{deadLine}</p>
-              <p>{description}</p>
-              <p></p>
-              <p></p>
-              <p></p>
+              <div className={classes.heading}>
+                <div>
+                  <h2>{title}</h2>
+                  <p>
+                    <span>Dead Line:</span> {deadLine}
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <span>Position:</span> {position}
+                  </p>
+                  <p>
+                    <span>Salary:</span> {salary}
+                  </p>
+                </div>
+              </div>
+              <p className={classes.desc}>
+                <span>Description:</span> {description}
+              </p>
+            </div>
+            <div className={`${classes.btn}`}>
+              <div className={`${classes.applyBtn}`}>
+                <Buttons handler={(event) => handleApply(showDetails, event)}>
+                  {showDetails?.isApplied ? "Applied" : "Apply Now"}
+                </Buttons>
+              </div>
             </div>
           </div>
         </div>
