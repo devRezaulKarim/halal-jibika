@@ -61,6 +61,7 @@
 }
 
 .detailsTop .companyInfo {
+  padding-left: 4rem;
   width: 60%;
   font-size: 1.8rem;
   h3 {
@@ -133,6 +134,15 @@
   .detailsBottom .jobInfo {
     .heading {
       display: block;
+    }
+  }
+  .detailsTop .detailsPhoto {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    img {
+      width: 40%;
     }
   }
 }
