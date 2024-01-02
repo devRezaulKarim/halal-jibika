@@ -2,7 +2,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function FavoriteManager(jobs, job, setJobs) {
+export default function FavoriteManager(jobs, job, setJobs, fromFavorite) {
   const status = job.isFavorite === "undefined" ? true : !job.isFavorite;
   axios
     .put(`http://localhost:9000/jobs/${job.id}`, {
@@ -10,14 +10,18 @@ export default function FavoriteManager(jobs, job, setJobs) {
       isFavorite: status,
     })
     .then((res) => {
-      setJobs(
-        jobs.map((j) => {
-          if (j.id === job.id) {
-            return { ...j, isFavorite: status };
-          }
-          return j;
-        })
-      );
+      if (fromFavorite) {
+        setJobs(jobs.filter((j) => j.id !== job.id));
+      } else {
+        setJobs(
+          jobs.map((j) => {
+            if (j.id === job.id) {
+              return { ...j, isFavorite: status };
+            }
+            return j;
+          })
+        );
+      }
       job.isFavorite
         ? toast.warn("Job has been removed from favorite", {
             position: "top-right",

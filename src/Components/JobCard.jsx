@@ -13,6 +13,8 @@ export default function JobCard({
   handleFavorite,
   handleApply,
   setShowDetails,
+  fromApplied,
+  fromFavorite,
 }) {
   let {
     title,
@@ -52,7 +54,7 @@ export default function JobCard({
               {isFavorite ? <FaHeart /> : <FaRegHeart />}
             </Buttons>
           </div>
-          {!featured ? (
+          {!featured && !fromApplied && !fromFavorite ? (
             <>
               <div className={`${classes.btn} ${classes.editBtn}`}>
                 <Buttons handler={(event) => handleEdit(job, event)}>
