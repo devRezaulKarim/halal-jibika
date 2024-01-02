@@ -119,9 +119,14 @@
   .applyBtn {
     margin-left: auto;
     font-size: 1.8rem;
-    background-color: var(--color-secondary);
+    background-color: var(--color-primary);
     color: #fff;
     border-radius: 0.5rem;
+    transition: all 0.2s;
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 1.5rem 0.2rem var(--color-primary);
+    }
   }
   .deleteBtn {
     color: red;
@@ -134,5 +139,41 @@
   .favoriteBtn {
     color: orangered;
     font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .cardTop {
+    display: block;
+    min-height: 100px;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .cardTopLeft {
+    max-width: 100%;
+    margin-bottom: 1rem;
+    .cardImg {
+      width: 50%;
+      img {
+        width: 70%;
+      }
+    }
+
+    .companyInfo {
+      max-width: 50%;
+      max-height: none;
+    }
+  }
+  .cardTopRight {
+    max-width: 100%;
+    padding-left: 0;
+  }
+
+  .cardFooter .cardBtns {
+    padding-inline: 0rem;
+    gap: 1rem;
   }
 }
