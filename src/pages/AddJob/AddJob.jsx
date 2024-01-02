@@ -6,14 +6,7 @@ import { toast } from "react-toastify";
 import Form from "../../Components/Form";
 
 export default function AddJob() {
-  const { register, reset, handleSubmit, errors } = useForm({
-    defaultValues: {
-      title: "",
-      logo: "",
-      companyName: "",
-      position: "",
-    },
-  });
+  const { register, reset, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     axios
