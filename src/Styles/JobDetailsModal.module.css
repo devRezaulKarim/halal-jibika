@@ -21,7 +21,7 @@
   border-radius: 0.5rem;
   position: relative;
   max-height: 90vh;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .jobDetailModal .closeModalBtn {
@@ -61,6 +61,7 @@
 }
 
 .detailsTop .companyInfo {
+  word-break: break-all;
   padding-left: 4rem;
   width: 60%;
   font-size: 1.8rem;

@@ -17,6 +17,7 @@ export default function JobDetailsModal({
     position,
     deadLine,
     description,
+    logo,
   } = showDetails;
   return (
     <div className={classes.jobDetailModal}>
@@ -30,7 +31,7 @@ export default function JobDetailsModal({
         <div className={classes.detailsWrapper}>
           <div className={classes.detailsTop}>
             <div className={classes.detailsPhoto}>
-              <img src={showDetails.logo} alt="" />
+              <img src={logo} alt="" />
             </div>
             <div className={classes.companyInfo}>
               <h3>{companyName}</h3>
@@ -44,7 +45,7 @@ export default function JobDetailsModal({
                 <div>
                   <h2>{title}</h2>
                   <p>
-                    <span>Dead Line:</span> {deadLine}
+                    <span>Deadline:</span> {deadLine}
                   </p>
                 </div>
                 <div>

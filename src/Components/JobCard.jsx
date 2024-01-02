@@ -18,10 +18,14 @@ export default function JobCard({
 }) {
   let {
     title,
-    logo,
     companyName,
+    website,
+    location,
+    salary,
     position,
+    deadLine,
     description,
+    logo,
     id,
     isFavorite,
     isApplied,
@@ -30,46 +34,66 @@ export default function JobCard({
   return (
     <div onClick={() => setShowDetails(job)} className={classes.jobCard}>
       <div className={classes.cardTop}>
-        <div className={classes.cardImg}>
-          <img src={logo} alt="" />
+        <div className={classes.cardTopLeft}>
+          <div className={classes.cardImg}>
+            <img src={logo} alt="" />
+          </div>
+          <div className={classes.companyInfo}>
+            <h2>{companyName}</h2>
+            <h4>{website}</h4>
+            <h4>{location}</h4>
+          </div>
         </div>
-        <div className={classes.companyName}>
-          <h2>
-            Company: <span>{companyName}</span>
-          </h2>
+        <div className={classes.cardTopRight}>
+          <div className={classes.jobInfo}>
+            <h4>Salary: {salary}</h4>
+            <h4>Post: {position}</h4>
+            <h4>Deadline: {deadLine}</h4>
+          </div>
         </div>
       </div>
-      <div className={classes.cardBottom}>
+
+      <div className={classes.cardBody}>
         <h1>{title}</h1>
-        <h4>Position: {position}</h4>
-        <p>{description}</p>
+        <p>
+          {description.length > 250
+            ? `${description.slice(0, 200)}...`
+            : description}
+          {description.length > 250 ? (
+            <span className={classes.seeMore}>See More</span>
+          ) : (
+            ""
+          )}
+        </p>
+      </div>
+      <div className={classes.cardFooter}>
         <div className={classes.cardBtns}>
-          <div className={`${classes.btn} ${classes.applyBtn}`}>
-            <Buttons handler={(event) => handleApply(job, event)}>
-              {isApplied ? "Applied" : "Apply Now"}
-            </Buttons>
-          </div>
-          <div className={`${classes.btn} ${classes.favoriteBtn} `}>
-            <Buttons handler={(event) => handleFavorite(job, event)}>
-              {isFavorite ? <FaHeart /> : <FaRegHeart />}
-            </Buttons>
-          </div>
           {!featured && !fromApplied && !fromFavorite ? (
             <>
-              <div className={`${classes.btn} ${classes.editBtn}`}>
-                <Buttons handler={(event) => handleEdit(job, event)}>
-                  <FaEdit />
-                </Buttons>
-              </div>
               <div className={`${classes.btn} ${classes.deleteBtn}`}>
                 <Buttons handler={(event) => handleDelete(id, event)}>
                   <MdDelete />
+                </Buttons>
+              </div>
+              <div className={`${classes.btn} ${classes.editBtn}`}>
+                <Buttons handler={(event) => handleEdit(job, event)}>
+                  <FaEdit />
                 </Buttons>
               </div>
             </>
           ) : (
             ""
           )}
+          <div className={`${classes.btn} ${classes.favoriteBtn} `}>
+            <Buttons handler={(event) => handleFavorite(job, event)}>
+              {isFavorite ? <FaHeart /> : <FaRegHeart />}
+            </Buttons>
+          </div>
+          <div className={`${classes.btn} ${classes.applyBtn}`}>
+            <Buttons handler={(event) => handleApply(job, event)}>
+              {isApplied ? "Applied" : "Apply Now"}
+            </Buttons>
+          </div>
         </div>
       </div>
     </div>

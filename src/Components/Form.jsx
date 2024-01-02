@@ -18,7 +18,7 @@ export default function Form({ handleSubmit, onSubmit, register }) {
           Company Name
         </Input>
 
-        <Input register={register} type="text" name="website">
+        <Input register={register} type="url" name="website">
           Website
         </Input>
 
