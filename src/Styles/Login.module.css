@@ -87,6 +87,8 @@
 .socialBtns {
   position: relative;
   margin-top: 3rem;
+  padding: 1.5rem;
+  padding-top: 0;
 }
 .socialBtns::before {
   position: absolute;
