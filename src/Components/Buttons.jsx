@@ -7,7 +7,7 @@ export default function Buttons({ to, handler, children }) {
   return (
     <>
       {to ? (
-        <button>
+        <button style={{ backgroundColor: "transparent" }}>
           <Link to={to} className={classes.btnLink}>
             {children} <FaArrowRight />
           </Link>

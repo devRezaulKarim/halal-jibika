@@ -1,5 +1,6 @@
 .btnLink {
   border-bottom: 5px solid var(--color-primary);
+  background-color: transparent;
   color: var(--color-primary);
   font-weight: 600;
   padding: 1rem 1rem;
