@@ -108,9 +108,9 @@ export default function Navbar() {
                     width={"36px"}
                     height={"36px"}
                     style={{
-                      border: "2px solid white",
+                      border: "1px solid white",
                       borderRadius: "50%",
-                      padding: "4px",
+                      padding: "2px",
                     }}
                     src={
                       user.photoURL ??

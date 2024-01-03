@@ -68,6 +68,10 @@ export default function Registration() {
           if (res) {
             signOut();
             navigate("/login");
+            toast.success("Successfully registered!", {
+              theme: "dark",
+              autoClose: 2000,
+            });
             toast("Please login to continue!", {
               theme: "dark",
               autoClose: 2000,

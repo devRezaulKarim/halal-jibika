@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import classes from "../../Styles/Login.module.css";
 import { useForm } from "react-hook-form";
 import auth from "../../firebase/firebase.init";
@@ -26,6 +26,8 @@ export default function Login() {
     googleLoading || githubLoading || emailLoading || loading;
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const {
     register,
@@ -41,7 +43,7 @@ export default function Login() {
   if (authenticationErrorMessage) {
     toast.error(
       authenticationErrorMessage.message.includes("invalid")
-        ? "Password wrong"
+        ? "Wrong password"
         : "Something went wrong!!",
       {
         position: "top-right",
@@ -61,9 +63,10 @@ export default function Login() {
   }
 
   if (user) {
-    navigate("/");
+    return <Navigate to={from} replace:true />;
   }
 
+  //handling sign in with email and pass *********************
   const onSubmit = (data) => {
     signInWithEmailAndPassword(data.email, data.password).then((res) => {
       if (res?._tokenResponse.idToken) {

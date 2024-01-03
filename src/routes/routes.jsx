@@ -10,6 +10,7 @@ import Login from "../pages/Authentication/Login";
 import Registration from "../pages/Authentication/Registration";
 import Applied from "../pages/Applied/Applied";
 import AddJob from "../pages/AddJob/AddJob";
+import ReqAuthentication from "../pages/Authentication/ReqAuthentication";
 
 const routes = createBrowserRouter([
   {
@@ -30,7 +31,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/favorite",
-        element: <Favorite />,
+        element: (
+          <ReqAuthentication>
+            <Favorite />
+          </ReqAuthentication>
+        ),
       },
       {
         path: "/jobs",
@@ -39,11 +44,19 @@ const routes = createBrowserRouter([
       },
       {
         path: "/applied",
-        element: <Applied />,
+        element: (
+          <ReqAuthentication>
+            <Applied />
+          </ReqAuthentication>
+        ),
       },
       {
         path: "/addjob",
-        element: <AddJob />,
+        element: (
+          <ReqAuthentication>
+            <AddJob />
+          </ReqAuthentication>
+        ),
       },
       {
         path: "/login",

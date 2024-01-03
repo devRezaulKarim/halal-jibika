@@ -11,7 +11,7 @@ export default function MainLayout() {
 
       <div style={{ minHeight: "68vh" }}>
         <Outlet />
-        <ToastContainer />
+        <ToastContainer pauseOnFocusLoss={false} />
       </div>
       <Footer />
     </div>
