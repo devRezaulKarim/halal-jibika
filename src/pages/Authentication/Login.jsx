@@ -32,6 +32,14 @@ export default function Login() {
   //handling the user *********************
   if (authenticationErrorMessage) {
     toast.error("Something went wrong!!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
       toastId: "customId",
     });
   }
