@@ -13,6 +13,9 @@ import { IoMdCloseCircle } from "react-icons/io";
 import FavoriteManager from "../../Utls/FavoriteManager";
 import ApplyNowManager from "../../Utls/ApplyNowManager";
 import JobDetailsModal from "../../Components/jobDetailsModal";
+import auth from "../../firebase/firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Jobs() {
   const { register, handleSubmit, reset } = useForm();
@@ -20,6 +23,8 @@ export default function Jobs() {
   const { loading, error, data } = useFetch("http://localhost:9000/jobs");
   const [jobs, setJobs] = useState(data);
   const [editingID, setEditingID] = useState(null);
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
   useEffect(() => {
     setJobs(data);
   }, [data]);
@@ -27,25 +32,41 @@ export default function Jobs() {
   //Handling delete job
   const handleDelete = async (id, event) => {
     event.stopPropagation();
-    await axios.delete(`http://localhost:9000/jobs/${id}`);
-    setJobs(jobs.filter((d) => d.id !== id));
-    toast.error("The job has been deleted", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    if (!user) {
+      navigate("/login");
+      toast.warn("Log in first to continue!", {
+        theme: "dark",
+        autoClose: 1500,
+      });
+    } else {
+      await axios.delete(`http://localhost:9000/jobs/${id}`);
+      setJobs(jobs.filter((d) => d.id !== id));
+      toast.error("The job has been deleted", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   //opening the form as a modal for editing the job. and showing the prev details.
   const handleEdit = (job, event) => {
     event.stopPropagation();
-    setEditingID(job.id);
-    reset(job);
+    if (!user) {
+      navigate("/login");
+      toast.warn("Log in first to continue!", {
+        theme: "dark",
+        autoClose: 1500,
+      });
+    } else {
+      setEditingID(job.id);
+      reset(job);
+    }
   };
 
   // handle form submission
@@ -73,13 +94,29 @@ export default function Jobs() {
 
   const handleFavorite = (job, event) => {
     event.stopPropagation();
-    FavoriteManager(jobs, job, setJobs);
+    if (!user) {
+      navigate("/login");
+      toast.warn("Log in first to continue!", {
+        theme: "dark",
+        autoClose: 1500,
+      });
+    } else {
+      FavoriteManager(jobs, job, setJobs);
+    }
   };
 
   //Handle Apply now
   const handleApply = (job, event) => {
     event.stopPropagation();
-    ApplyNowManager(jobs, job, setJobs);
+    if (!user) {
+      navigate("/login");
+      toast.warn("Log in first to continue!", {
+        theme: "dark",
+        autoClose: 1500,
+      });
+    } else {
+      ApplyNowManager(jobs, job, setJobs);
+    }
   };
 
   if (loading) {

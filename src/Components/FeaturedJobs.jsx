@@ -8,8 +8,13 @@ import JobCard from "./JobCard";
 import FavoriteManager from "../Utls/FavoriteManager";
 import ApplyNowManager from "../Utls/ApplyNowManager";
 import JobDetailsModal from "./jobDetailsModal";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import auth from "../firebase/firebase.init";
+import { toast } from "react-toastify";
 
 export default function FeaturedJobs() {
+  const [user] = useAuthState(auth);
   const [showDetails, setShowDetails] = useState(null);
   const { loading, error, data } = useFetch("http://localhost:9000/jobs");
   const [jobs, setJobs] = useState(data);
@@ -17,17 +22,35 @@ export default function FeaturedJobs() {
     setJobs(data);
   }, [data]);
 
+  const navigate = useNavigate();
+
   //Handle Favorite
 
   const handleFavorite = (job, event) => {
     event.stopPropagation();
-    FavoriteManager(jobs, job, setJobs);
+    if (!user) {
+      navigate("/login");
+      toast.warn("Log in first to continue!", {
+        theme: "dark",
+        autoClose: 1500,
+      });
+    } else {
+      FavoriteManager(jobs, job, setJobs);
+    }
   };
 
   //Handle Apply now
   const handleApply = (job, event) => {
     event.stopPropagation();
-    ApplyNowManager(jobs, job, setJobs);
+    if (!user) {
+      navigate("/login");
+      toast.warn("Log in first to continue!", {
+        theme: "dark",
+        autoClose: 1500,
+      });
+    } else {
+      ApplyNowManager(jobs, job, setJobs);
+    }
   };
 
   if (loading) {
