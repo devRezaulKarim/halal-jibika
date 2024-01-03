@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import classes from "../../Styles/Login.module.css";
 import { useForm } from "react-hook-form";
 import auth from "../../firebase/firebase.init";
 import {
+  useSignInWithEmailAndPassword,
   useSignInWithGithub,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
@@ -10,18 +11,21 @@ import Spinner from "../../Utls/Spinner";
 import { toast } from "react-toastify";
 
 export default function Login() {
-  const [signInWithGoogle, GoogleUser, GoogleLoading, GoogleError] =
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
-  const [signInWithGithub, GithubUser, GithubLoading, GithubError] =
+  const [signInWithGithub, githubUser, githubLoading, githubError] =
     useSignInWithGithub(auth);
+  const [signInWithEmailAndPassword, emailUser, emailLoading, emailError] =
+    useSignInWithEmailAndPassword(auth);
 
-  const authenticationErrorMessage = GoogleError || GithubError;
-  const authenticationLoading = GoogleLoading || GithubLoading;
+  const authenticationErrorMessage = googleError || githubError || emailError;
+  const authenticationLoading = googleLoading || githubLoading || emailLoading;
+
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    // watch,
     formState: {
       errors: { email, password },
     },
@@ -31,23 +35,34 @@ export default function Login() {
 
   //handling the user *********************
   if (authenticationErrorMessage) {
-    toast.error("Something went wrong!!", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      toastId: "customId",
-    });
+    toast.error(
+      authenticationErrorMessage.message.includes("invalid")
+        ? "Password wrong"
+        : "Something went wrong!!",
+      {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        toastId: "customId",
+      }
+    );
   }
   if (authenticationLoading) {
     return <Spinner />;
   }
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    signInWithEmailAndPassword(data.email, data.password).then((res) => {
+      if (res?._tokenResponse.idToken) {
+        navigate("/");
+      }
+    });
+  };
 
   return (
     <div className={classes.container}>
