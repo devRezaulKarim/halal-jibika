@@ -30,7 +30,7 @@ export default function FeaturedJobs() {
     event.stopPropagation();
     if (!user) {
       navigate("/login");
-      toast.warn("Log in first to continue!", {
+      toast.warn("Login first to continue!", {
         theme: "dark",
         autoClose: 1500,
       });
@@ -44,7 +44,7 @@ export default function FeaturedJobs() {
     event.stopPropagation();
     if (!user) {
       navigate("/login");
-      toast.warn("Log in first to continue!", {
+      toast.warn("Login first to continue!", {
         theme: "dark",
         autoClose: 1500,
       });
