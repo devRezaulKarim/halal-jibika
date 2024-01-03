@@ -1,14 +1,24 @@
+/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import classes from "../../Styles/Registration.module.css";
 import { useForm } from "react-hook-form";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useCreateUserWithEmailAndPassword,
+  useSignOut,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase/firebase.init";
 import { toast } from "react-toastify";
 import Spinner from "../../Utls/Spinner";
 
 export default function Registration() {
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, createUser, createLoading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile] = useUpdateProfile(auth);
+  const [user, loading] = useAuthState(auth);
+  const [signOut] = useSignOut(auth);
+
   const navigate = useNavigate();
   const {
     register,
@@ -18,14 +28,13 @@ export default function Registration() {
     },
   } = useForm();
 
-  if (loading) {
+  if (createLoading || loading) {
     return <Spinner />;
   }
   if (error) {
-    console.log();
     toast.error(
       error.message.includes("already-in-use")
-        ? "The mail already in use. Please try another mail."
+        ? "The email already in use. Please try another email."
         : "Something went wrong!!",
       {
         position: "top-right",
@@ -40,6 +49,10 @@ export default function Registration() {
       }
     );
   }
+
+  if (user) {
+    navigate("/");
+  }
   const errorMsg = "*This field is required";
 
   const onSubmit = (data) => {
@@ -50,7 +63,17 @@ export default function Registration() {
 
     if (password === confirmPass) {
       createUserWithEmailAndPassword(email, confirmPass).then((r) => {
-        if (r._tokenResponse.idToken) navigate("/");
+        if (r._tokenResponse.idToken) {
+          const res = updateProfile({ displayName: fullName });
+          if (res) {
+            signOut();
+            navigate("/login");
+            toast("Please login to continue!", {
+              theme: "dark",
+              autoClose: 2000,
+            });
+          }
+        }
       });
     } else {
       toast.error("Please check your password!", {
@@ -62,7 +85,6 @@ export default function Registration() {
         draggable: true,
         progress: undefined,
         theme: "colored",
-        toastId: "customId",
       });
     }
   };

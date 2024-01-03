@@ -1,21 +1,34 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classes from "../../Styles/Navbar.module.css";
 import { useEffect, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { IoMenu } from "react-icons/io5";
 import NavLinks from "../../Components/NavLinks";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import auth from "../../firebase/firebase.init";
+import Spinner from "../../Utls/Spinner";
 
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, loading] = useAuthState(auth);
+  const [signOut] = useSignOut(auth);
+
+  const handleSignOut = () => {
+    signOut();
+    setOpenMenu(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 0);
     };
-    // Add scroll event listener when component mounts
     window.addEventListener("scroll", handleScroll);
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
   return (
     <div className={`${classes.container} ${scrolled && classes.scrolled}`}>
       <div className={classes.wrapper}>
@@ -54,21 +67,25 @@ export default function Navbar() {
                 Jobs
               </NavLinks>
             </li>
-            <li>
-              <NavLinks to={"/favorite"} setOpenMenu={setOpenMenu}>
-                Favorite
-              </NavLinks>
-            </li>
-            <li>
-              <NavLinks to={"/applied"} setOpenMenu={setOpenMenu}>
-                Applied
-              </NavLinks>
-            </li>
-            <li>
-              <NavLinks to={"/addjob"} setOpenMenu={setOpenMenu}>
-                Add Job
-              </NavLinks>
-            </li>
+            {user && (
+              <>
+                <li>
+                  <NavLinks to={"/favorite"} setOpenMenu={setOpenMenu}>
+                    Favorite
+                  </NavLinks>
+                </li>
+                <li>
+                  <NavLinks to={"/applied"} setOpenMenu={setOpenMenu}>
+                    Applied
+                  </NavLinks>
+                </li>
+                <li>
+                  <NavLinks to={"/addjob"} setOpenMenu={setOpenMenu}>
+                    Add Job
+                  </NavLinks>
+                </li>
+              </>
+            )}
             <li>
               <NavLinks to={"/about"} setOpenMenu={setOpenMenu}>
                 About
@@ -79,19 +96,37 @@ export default function Navbar() {
                 Contact
               </NavLinks>
             </li>
-            <li>
-              <NavLinks to={"/login"} setOpenMenu={setOpenMenu}>
-                Login
-              </NavLinks>
-            </li>
-            <li>
-              <NavLink
-                className={classes.links}
-                onClick={() => setOpenMenu(false)}
-              >
-                Sign out
-              </NavLink>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <Link className={classes.links} onClick={handleSignOut}>
+                    Sign out
+                  </Link>
+                </li>
+                <li>
+                  <img
+                    width={"36px"}
+                    height={"36px"}
+                    style={{
+                      border: "2px solid white",
+                      borderRadius: "50%",
+                      padding: "4px",
+                    }}
+                    src={
+                      user.photoURL ??
+                      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png"
+                    }
+                    alt={user.displayName}
+                  />
+                </li>
+              </>
+            ) : (
+              <li>
+                <NavLinks to={"/login"} setOpenMenu={setOpenMenu}>
+                  Login
+                </NavLinks>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

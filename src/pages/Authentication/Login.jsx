@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import classes from "../../Styles/Login.module.css";
 import { useForm } from "react-hook-form";
 import auth from "../../firebase/firebase.init";
 import {
+  useAuthState,
   useSignInWithEmailAndPassword,
   useSignInWithGithub,
   useSignInWithGoogle,
@@ -17,9 +19,11 @@ export default function Login() {
     useSignInWithGithub(auth);
   const [signInWithEmailAndPassword, emailUser, emailLoading, emailError] =
     useSignInWithEmailAndPassword(auth);
+  const [user, loading] = useAuthState(auth);
 
   const authenticationErrorMessage = googleError || githubError || emailError;
-  const authenticationLoading = googleLoading || githubLoading || emailLoading;
+  const authenticationLoading =
+    googleLoading || githubLoading || emailLoading || loading;
 
   const navigate = useNavigate();
 
@@ -54,6 +58,10 @@ export default function Login() {
   }
   if (authenticationLoading) {
     return <Spinner />;
+  }
+
+  if (user) {
+    navigate("/");
   }
 
   const onSubmit = (data) => {

@@ -34,6 +34,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/jobs",
+
         element: <Jobs />,
       },
       {
