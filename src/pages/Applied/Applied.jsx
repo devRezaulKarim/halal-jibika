@@ -5,15 +5,26 @@ import classes from "../../Styles/Applied.module.css";
 import JobCard from "../../Components/JobCard";
 import Spinner from "../../Utls/Spinner";
 import ErrorMessage from "../NothingFound/ErrorMessage";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase/firebase.init";
 
 export default function Applied() {
-  const { loading, error, data } = useFetch("http://localhost:9000/jobs");
+  const { dataLoading, error, data } = useFetch("http://localhost:9000/jobs");
   const [appliedJobs, setAppliedJobs] = useState(data);
+  const [user, userLoading] = useAuthState(auth);
   useEffect(() => {
-    setAppliedJobs(data.filter((d) => d.isApplied));
-  }, [data]);
+    if (data && user) {
+      setAppliedJobs(
+        data.filter(
+          (d) =>
+            typeof d.appliedBy !== "undefined" &&
+            d.appliedBy.includes(user?.email)
+        )
+      );
+    }
+  }, [data, user]);
 
-  if (loading) {
+  if (dataLoading || userLoading) {
     return <Spinner />;
   }
   if (error) {
@@ -34,6 +45,7 @@ export default function Applied() {
           <JobCard
             key={job.id}
             job={job}
+            email={user.email}
             handleFavorite={"handleFavorite"}
             handleApply={"handleApply"}
             setShowDetails={"setShowDetails"}

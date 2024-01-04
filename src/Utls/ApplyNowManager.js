@@ -2,8 +2,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function ApplyNowManager(jobs, job, setJobs) {
-  if (job.isApplied) {
+export default function ApplyNowManager(jobs, job, setJobs, email) {
+  if (job.appliedBy?.includes(email)) {
     toast.warn("You already applied to this job!", {
       position: "top-right",
       autoClose: 3000,
@@ -19,13 +19,22 @@ export default function ApplyNowManager(jobs, job, setJobs) {
   axios
     .put(`http://localhost:9000/jobs/${job.id}`, {
       ...job,
-      isApplied: true,
+      appliedBy:
+        typeof job.appliedBy === "undefined"
+          ? [email]
+          : [...job.appliedBy, email],
     })
     .then((res) => {
       setJobs(
         jobs.map((j) => {
           if (j.id === job.id) {
-            return { ...j, isApplied: true };
+            return {
+              ...j,
+              appliedBy:
+                typeof job.appliedBy === "undefined"
+                  ? [email]
+                  : [...job.appliedBy, email],
+            };
           }
           return j;
         })

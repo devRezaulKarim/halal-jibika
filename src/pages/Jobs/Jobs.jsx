@@ -20,15 +20,16 @@ import { useNavigate } from "react-router-dom";
 export default function Jobs() {
   const { register, handleSubmit, reset } = useForm();
   const [showDetails, setShowDetails] = useState(null);
-  const { loading, error, data } = useFetch("http://localhost:9000/jobs");
+  const { dataLoading, error, data } = useFetch("http://localhost:9000/jobs");
   const [jobs, setJobs] = useState(data);
   const [editingID, setEditingID] = useState(null);
-  const [user] = useAuthState(auth);
+  const [user, useLoading] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
     setJobs(data);
   }, [data]);
 
+  const loading = dataLoading || useLoading;
   //Handling delete job
   const handleDelete = async (id, event) => {
     event.stopPropagation();
@@ -101,7 +102,8 @@ export default function Jobs() {
         autoClose: 1500,
       });
     } else {
-      FavoriteManager(jobs, job, setJobs);
+      FavoriteManager(jobs, job, setJobs, false, user.email);
+      // FavoriteManager(jobs, job, setJobs);
     }
   };
 
@@ -115,7 +117,7 @@ export default function Jobs() {
         autoClose: 1500,
       });
     } else {
-      ApplyNowManager(jobs, job, setJobs);
+      ApplyNowManager(jobs, job, setJobs, user.email);
     }
   };
 
@@ -134,6 +136,7 @@ export default function Jobs() {
             <JobCard
               key={job.id}
               job={job}
+              email={user.email}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
               handleFavorite={handleFavorite}

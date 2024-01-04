@@ -4,11 +4,10 @@ import Buttons from "./Buttons";
 import { MdDelete } from "react-icons/md";
 import { FaEdit, FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
-import auth from "../firebase/firebase.init";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function JobCard({
   job,
+  email,
   featured,
   handleDelete,
   handleEdit,
@@ -29,14 +28,15 @@ export default function JobCard({
     description,
     logo,
     id,
-    isFavorite,
-    isApplied,
+    favoriteTo,
+    appliedBy,
   } = job;
 
-  const [user] = useAuthState(auth);
-
   return (
-    <div onClick={() => setShowDetails(job)} className={classes.jobCard}>
+    <div
+      onClick={() => !fromApplied && !fromFavorite && setShowDetails(job)}
+      className={classes.jobCard}
+    >
       <div className={classes.cardTop}>
         <div className={classes.cardTopLeft}>
           <div className={classes.cardImg}>
@@ -88,14 +88,21 @@ export default function JobCard({
           ) : (
             ""
           )}
-          <div className={`${classes.btn} ${classes.favoriteBtn} `}>
-            <Buttons handler={(event) => handleFavorite(job, event)}>
-              {isFavorite && user ? <FaHeart /> : <FaRegHeart />}
-            </Buttons>
-          </div>
+          {!fromApplied && (
+            <div className={`${classes.btn} ${classes.favoriteBtn} `}>
+              <Buttons handler={(event) => handleFavorite(job, event)}>
+                {favoriteTo?.includes(email) ? <FaHeart /> : <FaRegHeart />}
+              </Buttons>
+            </div>
+          )}
+
           <div className={`${classes.btn} ${classes.applyBtn}`}>
-            <Buttons handler={(event) => handleApply(job, event)}>
-              {isApplied && user ? "Applied" : "Apply Now"}
+            <Buttons
+              handler={(event) =>
+                !fromApplied && !fromFavorite && handleApply(job, event)
+              }
+            >
+              {appliedBy?.includes(email) ? "Applied" : "Apply Now"}
             </Buttons>
           </div>
         </div>

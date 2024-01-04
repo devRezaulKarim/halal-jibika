@@ -14,16 +14,16 @@ import auth from "../firebase/firebase.init";
 import { toast } from "react-toastify";
 
 export default function FeaturedJobs() {
-  const [user] = useAuthState(auth);
+  const [user, userLoading] = useAuthState(auth);
   const [showDetails, setShowDetails] = useState(null);
-  const { loading, error, data } = useFetch("http://localhost:9000/jobs");
+  const { dataLoading, error, data } = useFetch("http://localhost:9000/jobs");
   const [jobs, setJobs] = useState(data);
   useEffect(() => {
     setJobs(data);
   }, [data]);
 
   const navigate = useNavigate();
-
+  const loading = userLoading || dataLoading;
   //Handle Favorite
 
   const handleFavorite = (job, event) => {
@@ -35,7 +35,7 @@ export default function FeaturedJobs() {
         autoClose: 1500,
       });
     } else {
-      FavoriteManager(jobs, job, setJobs);
+      FavoriteManager(jobs, job, setJobs, false, user.email);
     }
   };
 
@@ -49,7 +49,7 @@ export default function FeaturedJobs() {
         autoClose: 1500,
       });
     } else {
-      ApplyNowManager(jobs, job, setJobs);
+      ApplyNowManager(jobs, job, setJobs, user.email);
     }
   };
 
@@ -72,6 +72,7 @@ export default function FeaturedJobs() {
             <JobCard
               key={job.id}
               job={job}
+              email={user.email}
               featured={true}
               handleFavorite={handleFavorite}
               handleApply={handleApply}

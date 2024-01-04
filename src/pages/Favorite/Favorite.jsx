@@ -6,22 +6,31 @@ import JobCard from "../../Components/JobCard";
 import FavoriteManager from "../../Utls/FavoriteManager";
 import Spinner from "../../Utls/Spinner";
 import ErrorMessage from "../NothingFound/ErrorMessage";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase/firebase.init";
 
 export default function Favorite() {
-  const { loading, error, data } = useFetch("http://localhost:9000/jobs");
+  const { dataLoading, error, data } = useFetch("http://localhost:9000/jobs");
   const [favoriteJobs, setFavoriteJobs] = useState([]);
+  const [user, userLoading] = useAuthState(auth);
   useEffect(() => {
-    if (data) {
-      setFavoriteJobs(data.filter((d) => d.isFavorite));
+    if (data && user) {
+      setFavoriteJobs(
+        data.filter(
+          (d) =>
+            typeof d.favoriteTo !== "undefined" &&
+            d.favoriteTo.includes(user?.email)
+        )
+      );
     }
-  }, [data]);
+  }, [data, user]);
 
   const handleFavorite = (job, event) => {
     event.stopPropagation();
-    FavoriteManager(favoriteJobs, job, setFavoriteJobs, true);
+    FavoriteManager(favoriteJobs, job, setFavoriteJobs, true, user?.email);
   };
 
-  if (loading) {
+  if (dataLoading || userLoading) {
     return <Spinner />;
   }
 
@@ -42,6 +51,7 @@ export default function Favorite() {
           <JobCard
             key={job.id}
             job={job}
+            email={user.email}
             handleFavorite={handleFavorite}
             handleApply={"handleApply"}
             setShowDetails={"setShowDetails"}
