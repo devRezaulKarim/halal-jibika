@@ -72,7 +72,7 @@ export default function FeaturedJobs() {
             <JobCard
               key={job.id}
               job={job}
-              email={user.email}
+              email={user?.email}
               featured={true}
               handleFavorite={handleFavorite}
               handleApply={handleApply}

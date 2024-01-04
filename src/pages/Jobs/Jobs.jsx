@@ -136,7 +136,7 @@ export default function Jobs() {
             <JobCard
               key={job.id}
               job={job}
-              email={user.email}
+              email={user?.email}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
               handleFavorite={handleFavorite}
