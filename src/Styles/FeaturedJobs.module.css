@@ -37,7 +37,6 @@
   div {
     font-size: larger;
     border-radius: 0.5rem;
-    background-color: var(--color-primary);
   }
 }
 
