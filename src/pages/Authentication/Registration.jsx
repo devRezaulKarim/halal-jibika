@@ -103,7 +103,7 @@ export default function Registration() {
             onSubmit={handleSubmit(onSubmit)}
           >
             <input
-              {...register("fullName", { required: true })}
+              {...register("fullName")}
               placeholder="Full name"
               type="text"
             />
