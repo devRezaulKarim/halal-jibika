@@ -4,6 +4,8 @@ import Buttons from "./Buttons";
 import { MdDelete } from "react-icons/md";
 import { FaEdit, FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
+import auth from "../firebase/firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function JobCard({
   job,
@@ -30,6 +32,8 @@ export default function JobCard({
     isFavorite,
     isApplied,
   } = job;
+
+  const [user] = useAuthState(auth);
 
   return (
     <div onClick={() => setShowDetails(job)} className={classes.jobCard}>
@@ -86,12 +90,12 @@ export default function JobCard({
           )}
           <div className={`${classes.btn} ${classes.favoriteBtn} `}>
             <Buttons handler={(event) => handleFavorite(job, event)}>
-              {isFavorite ? <FaHeart /> : <FaRegHeart />}
+              {isFavorite && user ? <FaHeart /> : <FaRegHeart />}
             </Buttons>
           </div>
           <div className={`${classes.btn} ${classes.applyBtn}`}>
             <Buttons handler={(event) => handleApply(job, event)}>
-              {isApplied ? "Applied" : "Apply Now"}
+              {isApplied && user ? "Applied" : "Apply Now"}
             </Buttons>
           </div>
         </div>
