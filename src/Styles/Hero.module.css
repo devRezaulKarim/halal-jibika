@@ -28,7 +28,6 @@
         -webkit-background-clip: text;
         color: transparent;
         display: inline-block;
-        animation: blink 1s linear infinite;
       }
     }
   }
@@ -52,18 +51,6 @@
 
 .hero .heroRight {
   max-width: 45%;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    transform: scale(1.4);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(0);
-    opacity: 0;
-  }
 }
 
 @media (max-width: 991.98px) {
