@@ -20,7 +20,9 @@ import { useNavigate } from "react-router-dom";
 export default function Jobs() {
   const { register, handleSubmit, reset } = useForm();
   const [showDetails, setShowDetails] = useState(null);
-  const { dataLoading, error, data } = useFetch("http://localhost:9000/jobs");
+  const { dataLoading, error, data } = useFetch(
+    "https://rezauls-json-server.onrender.com/jobs"
+  );
   const [jobs, setJobs] = useState(data);
   const [editingID, setEditingID] = useState(null);
   const [user, useLoading] = useAuthState(auth);
@@ -40,7 +42,7 @@ export default function Jobs() {
         autoClose: 1500,
       });
     } else {
-      await axios.delete(`http://localhost:9000/jobs/${id}`);
+      await axios.delete(`https://rezauls-json-server.onrender.com/jobs/${id}`);
       setJobs(jobs.filter((d) => d.id !== id));
       toast.error("The job has been deleted", {
         position: "top-right",
@@ -73,7 +75,7 @@ export default function Jobs() {
   // handle form submission
   const onSubmit = (data) => {
     axios
-      .put(`http://localhost:9000/jobs/${editingID}`, data)
+      .put(`https://rezauls-json-server.onrender.com/jobs/${editingID}`, data)
       .then((res) => {
         setJobs(
           jobs.map((job) => {

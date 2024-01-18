@@ -9,7 +9,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase/firebase.init";
 
 export default function Applied() {
-  const { dataLoading, error, data } = useFetch("http://localhost:9000/jobs");
+  const { dataLoading, error, data } = useFetch(
+    "https://rezauls-json-server.onrender.com/jobs"
+  );
   const [appliedJobs, setAppliedJobs] = useState(data);
   const [user, userLoading] = useAuthState(auth);
   useEffect(() => {

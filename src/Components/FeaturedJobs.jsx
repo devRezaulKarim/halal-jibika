@@ -16,7 +16,9 @@ import { toast } from "react-toastify";
 export default function FeaturedJobs() {
   const [user, userLoading] = useAuthState(auth);
   const [showDetails, setShowDetails] = useState(null);
-  const { dataLoading, error, data } = useFetch("http://localhost:9000/jobs");
+  const { dataLoading, error, data } = useFetch(
+    "https://rezauls-json-server.onrender.com/jobs"
+  );
   const [jobs, setJobs] = useState(data);
   useEffect(() => {
     setJobs(data);

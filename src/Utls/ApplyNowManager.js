@@ -17,7 +17,7 @@ export default function ApplyNowManager(jobs, job, setJobs, email) {
     return;
   }
   axios
-    .put(`http://localhost:9000/jobs/${job.id}`, {
+    .put(`https://rezauls-json-server.onrender.com/jobs/${job.id}`, {
       ...job,
       appliedBy:
         typeof job.appliedBy === "undefined"

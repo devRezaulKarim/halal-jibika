@@ -10,7 +10,7 @@ export default function AddJob() {
 
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:9000/jobs", data)
+      .post("https://rezauls-json-server.onrender.com/jobs", data)
 
       .then(function (response) {
         toast.success(`Job added successfully`);

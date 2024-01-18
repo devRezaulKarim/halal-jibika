@@ -11,7 +11,7 @@ export default function FavoriteManager(
 ) {
   const status = job.isFavorite === "undefined" ? true : !job.isFavorite;
   axios
-    .put(`http://localhost:9000/jobs/${job.id}`, {
+    .put(`https://rezauls-json-server.onrender.com/jobs/${job.id}`, {
       ...job,
       favoriteTo:
         typeof job.favoriteTo === "undefined"
