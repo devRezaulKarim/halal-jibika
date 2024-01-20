@@ -17,7 +17,7 @@ export default function ApplyNowManager(jobs, job, setJobs, email) {
     return;
   }
   axios
-    .put(`https://rezauls-json-server.onrender.com/jobs/${job.id}`, {
+    .put(`https://rezauls-json-server.vercel.app/jobs/${job.id}`, {
       ...job,
       appliedBy:
         typeof job.appliedBy === "undefined"

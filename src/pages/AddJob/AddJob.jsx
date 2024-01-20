@@ -10,7 +10,7 @@ export default function AddJob() {
 
   const onSubmit = (data) => {
     axios
-      .post("https://rezauls-json-server.onrender.com/jobs", data)
+      .post("https://rezauls-json-server.vercel.app/jobs", data)
 
       .then(function (response) {
         toast.success(`Job added successfully`);

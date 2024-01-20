@@ -11,7 +11,7 @@ import auth from "../../firebase/firebase.init";
 
 export default function Favorite() {
   const { dataLoading, error, data } = useFetch(
-    "https://rezauls-json-server.onrender.com/jobs"
+    "https://rezauls-json-server.vercel.app/jobs"
   );
   const [favoriteJobs, setFavoriteJobs] = useState([]);
   const [user, userLoading] = useAuthState(auth);
