@@ -11,6 +11,7 @@ import Registration from "../pages/Authentication/Registration";
 import Applied from "../pages/Applied/Applied";
 import AddJob from "../pages/AddJob/AddJob";
 import ReqAuthentication from "../pages/Authentication/ReqAuthentication";
+import JobApplicationForm from "../Components/JobApplicationForm";
 
 const routes = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const routes = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration />,
+      },
+      {
+        path: "/apply",
+        element: <JobApplicationForm />,
       },
     ],
   },
