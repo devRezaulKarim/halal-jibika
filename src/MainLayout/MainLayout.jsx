@@ -9,7 +9,7 @@ export default function MainLayout() {
     <div>
       <Navbar />
 
-      <div style={{ minHeight: "68vh" }}>
+      <div style={{ minHeight: "calc(100vh - 200px)" }}>
         <Outlet />
         <ToastContainer pauseOnFocusLoss={false} />
       </div>

@@ -1,11 +1,15 @@
 import { useForm } from 'react-hook-form';
+import ApplyNowManager from '../Utls/ApplyNowManager';
 
-const JobApplicationForm = () => {
+const JobApplicationForm = ({jobs,  setJobs, job, setJob, email}) => {
   const { register, handleSubmit, errors,reset } = useForm();
 
   const onSubmit = (data) => {
     console.log('Form data submitted:', data);
-    reset()
+    console.log(job);
+    // reset()
+    // ApplyNowManager(jobs, job, setJobs, email);
+    setJob(null)
   };
 
   return (

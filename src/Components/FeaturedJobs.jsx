@@ -12,10 +12,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import auth from "../firebase/firebase.init";
 import { toast } from "react-toastify";
+import JobApplicationForm from "./JobApplicationForm";
 
 export default function FeaturedJobs() {
   const [user, userLoading] = useAuthState(auth);
   const [showDetails, setShowDetails] = useState(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false)
+  const [targetJob, setTargetJob] = useState(null)
   const { dataLoading, error, data } = useFetch(
     "https://rezauls-json-server.vercel.app/jobs"
   );
@@ -26,6 +29,9 @@ export default function FeaturedJobs() {
 
   const navigate = useNavigate();
   const loading = userLoading || dataLoading;
+
+
+
   //Handle Favorite
 
   const handleFavorite = (job, event) => {
@@ -51,7 +57,8 @@ export default function FeaturedJobs() {
         autoClose: 1500,
       });
     } else {
-      ApplyNowManager(jobs, job, setJobs, user.email);
+      // ApplyNowManager(jobs, job, setJobs, user.email);
+      setTargetJob(job)
     }
   };
 
@@ -95,6 +102,9 @@ export default function FeaturedJobs() {
       ) : (
         ""
       )}
+      {
+        targetJob && <JobApplicationForm jobs={jobs}  setJobs={setJobs} job={targetJob}setJob={setTargetJob} email={user.email}/>
+      }
     </div>
   );
 }
