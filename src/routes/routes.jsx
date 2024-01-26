@@ -67,10 +67,6 @@ const routes = createBrowserRouter([
         path: "/registration",
         element: <Registration />,
       },
-      {
-        path: "/apply",
-        element: <JobApplicationForm />,
-      },
     ],
   },
   {

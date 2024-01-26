@@ -22,7 +22,7 @@
     border-radius: 2rem;
   }
 }
-.featuredProducts {
+.featuredJobs {
   margin-top: 3.5rem;
   display: grid;
   padding-inline: 2rem;
@@ -40,8 +40,21 @@
   }
 }
 
+.applicationModal {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 @media (max-width: 929px) {
-  .featuredProducts {
+  .featuredJobs {
     grid-template-columns: repeat(1, 1fr);
   }
 }

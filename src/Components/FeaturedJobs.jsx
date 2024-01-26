@@ -6,7 +6,6 @@ import ErrorMessage from "../pages/NothingFound/ErrorMessage";
 import Buttons from "./Buttons";
 import JobCard from "./JobCard";
 import FavoriteManager from "../Utls/FavoriteManager";
-import ApplyNowManager from "../Utls/ApplyNowManager";
 import JobDetailsModal from "./jobDetailsModal";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
@@ -17,8 +16,7 @@ import JobApplicationForm from "./JobApplicationForm";
 export default function FeaturedJobs() {
   const [user, userLoading] = useAuthState(auth);
   const [showDetails, setShowDetails] = useState(null);
-  // const [isModalOpen, setIsModalOpen] = useState(false)
-  const [targetJob, setTargetJob] = useState(null)
+  const [targetJob, setTargetJob] = useState("null");
   const { dataLoading, error, data } = useFetch(
     "https://rezauls-json-server.vercel.app/jobs"
   );
@@ -29,8 +27,6 @@ export default function FeaturedJobs() {
 
   const navigate = useNavigate();
   const loading = userLoading || dataLoading;
-
-
 
   //Handle Favorite
 
@@ -58,7 +54,7 @@ export default function FeaturedJobs() {
       });
     } else {
       // ApplyNowManager(jobs, job, setJobs, user.email);
-      setTargetJob(job)
+      setTargetJob(job);
     }
   };
 
@@ -69,11 +65,11 @@ export default function FeaturedJobs() {
     return <ErrorMessage>{error}</ErrorMessage>;
   }
   return (
-    <div>
+    <div >
       <div className={classes.featuredHeading}>
         <h1>Latest Jobs</h1>
       </div>
-      <div className={classes.featuredProducts}>
+      <div className={classes.featuredJobs}>
         {[...jobs]
           .reverse()
           .slice(0, 4)
@@ -102,9 +98,18 @@ export default function FeaturedJobs() {
       ) : (
         ""
       )}
-      {
-        targetJob && <JobApplicationForm jobs={jobs}  setJobs={setJobs} job={targetJob}setJob={setTargetJob} email={user.email}/>
-      }
+      
+        {targetJob && (<div className={classes.applicationModal}>
+          <JobApplicationForm
+            jobs={jobs}
+            setJobs={setJobs}
+            job={targetJob}
+            setJob={setTargetJob}
+            email={user.email}
+          />
+          </div>
+        )}
+      
     </div>
   );
 }
