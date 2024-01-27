@@ -94,24 +94,6 @@
   }
 }
 
-.btn {
-  display: flex;
-  justify-content: end;
-  margin-top: 2rem;
-  div {
-    border-radius: 0.5rem;
-    transition: all 0.2s;
-    font-size: 2rem;
-    color: var(--color-white);
-    &:hover {
-      transform: scale(1.05);
-    }
-    &.applyBtn {
-      background-color: var(--color-secondary);
-    }
-  }
-}
-
 @media (max-width: 767px) {
   .jobDetailModal > div {
     min-width: 30rem;

@@ -186,7 +186,6 @@ export default function Jobs() {
           <JobDetailsModal
             showDetails={showDetails}
             setShowDetails={setShowDetails}
-            handleApply={handleApply}
           />
         ) : (
           ""

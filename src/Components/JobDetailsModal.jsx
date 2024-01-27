@@ -1,13 +1,8 @@
 /* eslint-disable react/prop-types */
 import { IoMdCloseCircle } from "react-icons/io";
 import classes from "../Styles/JobDetailsModal.module.css";
-import Buttons from "./Buttons";
 
-export default function JobDetailsModal({
-  showDetails,
-  setShowDetails,
-  handleApply,
-}) {
+export default function JobDetailsModal({ showDetails, setShowDetails }) {
   const {
     title,
     companyName,
@@ -60,13 +55,6 @@ export default function JobDetailsModal({
               <p className={classes.desc}>
                 <span>Description:</span> {description}
               </p>
-            </div>
-            <div className={`${classes.btn}`}>
-              <div className={`${classes.applyBtn}`}>
-                <Buttons handler={(event) => handleApply(showDetails, event)}>
-                  {showDetails?.isApplied ? "Applied" : "Apply Now"}
-                </Buttons>
-              </div>
             </div>
           </div>
         </div>
