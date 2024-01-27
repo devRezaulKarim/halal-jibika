@@ -8,7 +8,7 @@ import JobCard from "./JobCard";
 import FavoriteManager from "../Utls/FavoriteManager";
 import JobDetailsModal from "./jobDetailsModal";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../firebase/firebase.init";
 import { toast } from "react-toastify";
 import JobApplicationForm from "./JobApplicationForm";
@@ -27,13 +27,14 @@ export default function FeaturedJobs() {
 
   const navigate = useNavigate();
   const loading = userLoading || dataLoading;
+  const location = useLocation();
 
   //Handle Favorite
 
   const handleFavorite = (job, event) => {
     event.stopPropagation();
     if (!user) {
-      navigate("/login");
+      navigate("/login", { state: { from: location } });
       toast.warn("Login first to continue!", {
         theme: "dark",
         autoClose: 1500,
@@ -47,10 +48,21 @@ export default function FeaturedJobs() {
   const handleApply = (job, event) => {
     event.stopPropagation();
     if (!user) {
-      navigate("/login");
+      navigate("/login", { state: { from: location } });
       toast.warn("Login first to continue!", {
         theme: "dark",
         autoClose: 1500,
+      });
+    } else if (job.appliedBy?.includes(user.email)) {
+      toast.warn("You already applied to this job!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
     } else {
       // ApplyNowManager(jobs, job, setJobs, user.email);
@@ -65,7 +77,7 @@ export default function FeaturedJobs() {
     return <ErrorMessage>{error}</ErrorMessage>;
   }
   return (
-    <div >
+    <div>
       <div className={classes.featuredHeading}>
         <h1>Latest Jobs</h1>
       </div>
@@ -98,18 +110,17 @@ export default function FeaturedJobs() {
       ) : (
         ""
       )}
-      
-        {targetJob && (<div className={classes.applicationModal}>
+
+      {targetJob && (
+        <div className={classes.applicationModal}>
           <JobApplicationForm
             jobs={jobs}
             setJobs={setJobs}
             job={targetJob}
             setJob={setTargetJob}
-            email={user.email}
           />
-          </div>
-        )}
-      
+        </div>
+      )}
     </div>
   );
 }

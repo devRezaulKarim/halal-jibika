@@ -50,6 +50,9 @@
 .jobApplicationForm label {
   display: block;
   margin-bottom: 24px;
+  p {
+    color: red;
+  }
 }
 
 .jobApplicationForm textarea {

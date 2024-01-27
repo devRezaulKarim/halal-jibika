@@ -7,7 +7,7 @@ import Spinner from "../../Utls/Spinner";
 export default function ReqAuthentication({ children }) {
   const [user, loading] = useAuthState(auth);
   const location = useLocation();
-
+  console.log(location);
   if (loading) {
     return <Spinner />;
   }

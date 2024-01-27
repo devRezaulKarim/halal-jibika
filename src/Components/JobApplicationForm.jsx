@@ -1,13 +1,15 @@
+/* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import classes from "../Styles/JobApplicationForm.module.css";
 import { ImCross } from "react-icons/im";
 import ApplyNowManager from "../Utls/ApplyNowManager";
+import auth from "../firebase/firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-const JobApplicationForm = ({ jobs, setJobs, job, setJob, email }) => {
+const JobApplicationForm = ({ jobs, setJobs, job, setJob }) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: {
       errors: {
         fullName,
@@ -20,14 +22,12 @@ const JobApplicationForm = ({ jobs, setJobs, job, setJob, email }) => {
       },
     },
   } = useForm();
+  const [user] = useAuthState(auth);
 
   const errorMsg = "*This field is required";
 
-  const onSubmit = (data) => {
-    console.log("Form data submitted:", data);
-    console.log(job);
-    // reset()
-    // ApplyNowManager(jobs, job, setJobs, email);
+  const onSubmit = () => {
+    ApplyNowManager(jobs, job, setJobs, user.email);
     setJob(null);
   };
 
@@ -46,10 +46,9 @@ const JobApplicationForm = ({ jobs, setJobs, job, setJob, email }) => {
               Full Name:
               <input
                 type="text"
-                placeholder="Name"
-                {...register("fullName", {
-                  required: errorMsg,
-                })}
+                value={user.displayName}
+                disabled
+                {...register("fullName")}
               />
               {fullName && <p>{fullName.message}</p>}
             </label>
@@ -58,13 +57,13 @@ const JobApplicationForm = ({ jobs, setJobs, job, setJob, email }) => {
               Email:
               <input
                 type="email"
-                placeholder="Email"
+                value={user.email}
+                disabled
                 {...register("email", {
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                     message: "Invalid email address",
                   },
-                  required: errorMsg,
                 })}
               />
               {formEmail && <p>{formEmail.message}</p>}

@@ -3,19 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function ApplyNowManager(jobs, job, setJobs, email) {
-  if (job.appliedBy?.includes(email)) {
-    toast.warn("You already applied to this job!", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-    return;
-  }
+
   axios
     .put(`https://rezauls-json-server.vercel.app/jobs/${job.id}`, {
       ...job,

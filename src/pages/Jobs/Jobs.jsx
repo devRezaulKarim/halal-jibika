@@ -15,11 +15,13 @@ import ApplyNowManager from "../../Utls/ApplyNowManager";
 import JobDetailsModal from "../../Components/jobDetailsModal";
 import auth from "../../firebase/firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import JobApplicationForm from "../../Components/JobApplicationForm";
 
 export default function Jobs() {
   const { register, handleSubmit, reset } = useForm();
   const [showDetails, setShowDetails] = useState(null);
+  const [targetJob, setTargetJob] = useState(null);
   const { dataLoading, error, data } = useFetch(
     "https://rezauls-json-server.vercel.app/jobs"
   );
@@ -32,11 +34,12 @@ export default function Jobs() {
   }, [data]);
 
   const loading = dataLoading || useLoading;
+  const location = useLocation();
   //Handling delete job
   const handleDelete = async (id, event) => {
     event.stopPropagation();
     if (!user) {
-      navigate("/login");
+      navigate("/login", { state: { from: location } });
       toast.warn("Login first to continue!", {
         theme: "dark",
         autoClose: 1500,
@@ -61,7 +64,7 @@ export default function Jobs() {
   const handleEdit = (job, event) => {
     event.stopPropagation();
     if (!user) {
-      navigate("/login");
+      navigate("/login", { state: { from: location } });
       toast.warn("Login first to continue!", {
         theme: "dark",
         autoClose: 1500,
@@ -98,7 +101,7 @@ export default function Jobs() {
   const handleFavorite = (job, event) => {
     event.stopPropagation();
     if (!user) {
-      navigate("/login");
+      navigate("/login", { state: { from: location } });
       toast.warn("Login first to continue!", {
         theme: "dark",
         autoClose: 1500,
@@ -113,13 +116,24 @@ export default function Jobs() {
   const handleApply = (job, event) => {
     event.stopPropagation();
     if (!user) {
-      navigate("/login");
+      navigate("/login", { state: { from: location } });
       toast.warn("Login first to continue!", {
         theme: "dark",
         autoClose: 1500,
       });
+    } else if (job.appliedBy?.includes(user.email)) {
+      toast.warn("You already applied to this job!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } else {
-      ApplyNowManager(jobs, job, setJobs, user.email);
+      setTargetJob(job);
     }
   };
 
@@ -178,6 +192,16 @@ export default function Jobs() {
           ""
         )}
       </div>
+      {targetJob && (
+        <div className={classes.applicationModal}>
+          <JobApplicationForm
+            jobs={jobs}
+            setJobs={setJobs}
+            job={targetJob}
+            setJob={setTargetJob}
+          />
+        </div>
+      )}
     </div>
   );
 }
