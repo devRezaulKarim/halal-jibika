@@ -1,9 +1,27 @@
 import { useForm } from "react-hook-form";
 import classes from "../Styles/JobApplicationForm.module.css";
+import { ImCross } from "react-icons/im";
 import ApplyNowManager from "../Utls/ApplyNowManager";
 
 const JobApplicationForm = ({ jobs, setJobs, job, setJob, email }) => {
-  const { register, handleSubmit, errors, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: {
+      errors: {
+        fullName,
+        formEmail,
+        phoneNumber,
+        education,
+        workExperience,
+        skills,
+        coverLetter,
+      },
+    },
+  } = useForm();
+
+  const errorMsg = "*This field is required";
 
   const onSubmit = (data) => {
     console.log("Form data submitted:", data);
@@ -17,7 +35,9 @@ const JobApplicationForm = ({ jobs, setJobs, job, setJob, email }) => {
     <div className={classes.jobApplicationForm}>
       <h2 className={classes.heading}>Job Application Form</h2>
       <div className={classes.closeBtn}>
-        <button>X</button>
+        <button onClick={() => setJob(null)}>
+          <ImCross />
+        </button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.formDivider}>
@@ -26,47 +46,51 @@ const JobApplicationForm = ({ jobs, setJobs, job, setJob, email }) => {
               Full Name:
               <input
                 type="text"
+                placeholder="Name"
                 {...register("fullName", {
-                  required: "This field is required",
+                  required: errorMsg,
                 })}
               />
-              {errors && <p>{errors.fullName.message}</p>}
+              {fullName && <p>{fullName.message}</p>}
             </label>
 
             <label>
               Email:
               <input
                 type="email"
+                placeholder="Email"
                 {...register("email", {
-                  required: "This field is required",
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                     message: "Invalid email address",
                   },
+                  required: errorMsg,
                 })}
               />
-              {errors && <p>{errors.email.message}</p>}
+              {formEmail && <p>{formEmail.message}</p>}
             </label>
 
             <label>
               Phone Number:
               <input
                 type="tel"
+                placeholder="Phone Number"
                 {...register("phoneNumber", {
-                  required: "This field is required",
+                  required: errorMsg,
                 })}
               />
-              {errors && <p>{errors.phoneNumber.message}</p>}
+              {phoneNumber && <p>{phoneNumber.message}</p>}
             </label>
 
             <label>
               Education:
               <textarea
+                placeholder="Educations"
                 {...register("education", {
-                  required: "This field is required",
+                  required: errorMsg,
                 })}
               />
-              {errors && <p>{errors.education.message}</p>}
+              {education && <p>{education.message}</p>}
             </label>
           </div>
 
@@ -74,34 +98,39 @@ const JobApplicationForm = ({ jobs, setJobs, job, setJob, email }) => {
             <label>
               Work Experience:
               <textarea
+                placeholder="Experience"
                 {...register("workExperience", {
-                  required: "This field is required",
+                  required: errorMsg,
                 })}
               />
-              {errors && <p>{errors.workExperience.message}</p>}
+              {workExperience && <p>{workExperience.message}</p>}
             </label>
 
             <label>
               Skills:
               <textarea
-                {...register("skills", { required: "This field is required" })}
+                placeholder="Skills"
+                {...register("skills", { required: errorMsg })}
               />
-              {errors && <p>{errors.skills.message}</p>}
+              {skills && <p>{skills.message}</p>}
             </label>
 
             <label>
               Cover Letter:
               <textarea
+                placeholder="Cover Letter"
                 {...register("coverLetter", {
-                  required: "This field is required",
+                  required: errorMsg,
                 })}
               />
-              {errors && <p>{errors.coverLetter.message}</p>}
+              {coverLetter && <p>{coverLetter.message}</p>}
             </label>
           </div>
         </div>
 
-        <button type="submit">Submit</button>
+        <div className={classes.submitBtn}>
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );

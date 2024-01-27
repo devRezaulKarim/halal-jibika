@@ -16,7 +16,7 @@ import JobApplicationForm from "./JobApplicationForm";
 export default function FeaturedJobs() {
   const [user, userLoading] = useAuthState(auth);
   const [showDetails, setShowDetails] = useState(null);
-  const [targetJob, setTargetJob] = useState("null");
+  const [targetJob, setTargetJob] = useState(null);
   const { dataLoading, error, data } = useFetch(
     "https://rezauls-json-server.vercel.app/jobs"
   );
