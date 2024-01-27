@@ -153,7 +153,7 @@
   }
 
   .cardTopLeft {
-    max-width: 100%;
+    width: 100%;
     margin-bottom: 1rem;
     .cardImg {
       width: 50%;
@@ -168,7 +168,7 @@
     }
   }
   .cardTopRight {
-    max-width: 100%;
+    width: 100%;
     padding-left: 0;
   }
 

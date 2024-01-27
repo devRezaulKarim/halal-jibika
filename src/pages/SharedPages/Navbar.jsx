@@ -103,7 +103,7 @@ export default function Navbar() {
                     Sign out
                   </Link>
                 </li>
-                <li>
+                <li className={classes.userImg}>
                   <img
                     width={"36px"}
                     height={"36px"}
